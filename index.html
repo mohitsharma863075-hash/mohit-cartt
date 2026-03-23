@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Mohit Cart | Pan India Express Delivery</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    body {
+        background: #fefaf5;
+        scroll-behavior: smooth;
+    }
+
+    ::-webkit-scrollbar {
+        width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+        background: #f1e6dc;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: #ff7a18;
+        border-radius: 10px;
+    }
+
+    header {
+        background: linear-gradient(135deg, #ff7a18, #ff4d4d);
+        color: white;
+        padding: 12px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .logo h2 {
+        font-size: 1.4rem;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+    .logo span {
+        background: white;
+        color: #ff4d4d;
+        font-size: 0.65rem;
+        padding: 2px 6px;
+        border-radius: 30px;
+    }
+    .header-actions {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    .location-trigger, .profile-btn, .cart-btn, .wishlist-btn {
+        background: rgba(255,255,255,0.2);
+        border: none;
+        padding: 6px 12px;
+        border-radius: 40px;
+        color: white;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        transition: 0.3s;
+        font-size: 0.85rem;
+    }
+    .cart-btn, .wishlist-btn {
+        background: white;
+        color: #ff4d4d;
+    }
+    .delivery-banner {
+        background: linear-gradient(135deg, #1e3c2c, #2c5a3a);
+        color: #ffd966;
+        padding: 8px;
+        text-align: center;
+        font-size: 0.8rem;
+        font-weight: 500;
+    }
+
+    /* Search Bar */
+    .search-section {
+        background: white;
+        padding: 12px 20px;
+        border-bottom: 1px solid #f0e6dc;
+        position: sticky;
+        top: 70px;
+        z-index: 98;
+    }
+    .search-container {
+        max-width: 600px;
+        margin: 0 auto;
+        position: relative;
+    }
+    .search-container input {
+        width: 100%;
+        padding: 12px 20px 12px 45px;
+        border-radius: 50px;
+        border: 2px solid #ffddd3;
+        font-size: 0.9rem;
+        outline: none;
+        transition: 0.2s;
+    }
+    .search-container input:focus {
+        border-color: #ff7a18;
+        box-shadow: 0 0 0 3px rgba(255,122,24,0.1);
+    }
+    .search-container i {
+        position: absolute;
+        left: 18px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #ff7a18;
+        font-size: 1rem;
+    }
+    .search-clear {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: #999;
+        cursor: pointer;
+        display: none;
+    }
+    .search-results-count {
+        text-align: center;
+        font-size: 0.75rem;
+        color: #666;
+        margin-top: 8px;
+    }
+
+    .categories-section {
+        background: white;
+        padding: 15px 20px;
+        border-bottom: 1px solid #f0e6dc;
+        position: sticky;
+        top: 125px;
+        z-index: 97;
+        overflow-x: auto;
+        white-space: nowrap;
+        scrollbar-width: thin;
+    }
+    .categories-container {
+        display: inline-flex;
+        gap: 12px;
+    }
+    .category-item {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        cursor: pointer;
+        padding: 8px 16px;
+        border-radius: 40px;
+        background: #f8f4f0;
+        transition: all 0.2s;
+        min-width: 70px;
+    }
+    .category-item.active {
+        background: #ff7a18;
+        color: white;
+        box-shadow: 0 4px 12px rgba(255,122,24,0.3);
+    }
+    .products {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 18px;
+        padding: 25px 20px;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+    .card {
+        background: white;
+        border-radius: 20px;
+        overflow: hidden;
+        transition: all 0.3s;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        border: 1px solid rgba(255,122,24,0.1);
+        position: relative;
+        cursor: pointer;
+    }
+    .card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 24px rgba(255,122,24,0.15);
+    }
+    .badge {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background: #ff7a18;
+        color: white;
+        padding: 2px 8px;
+        border-radius: 20px;
+        font-size: 0.7rem;
+        font-weight: bold;
+        z-index: 2;
+    }
+    .wishlist-icon {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: white;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 3;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        transition: 0.2s;
+    }
+    .wishlist-icon i {
+        color: #ff7a18;
+        font-size: 1rem;
+    }
+    .wishlist-icon.active i {
+        color: #e63946;
+        font-weight: bold;
+    }
+    .wishlist-icon:hover {
+        transform: scale(1.1);
+    }
+    .img-wrapper {
+        background: #fef4ea;
+        padding: 15px;
+        display: flex;
+        justify-content: center;
+        height: 150px;
+    }
+    .card img {
+        max-width: 100%;
+        max-height: 120px;
+        object-fit: contain;
+    }
+    .card-content {
+        padding: 12px 12px 16px;
+        text-align: center;
+    }
+    .card h3 {
+        font-size: 0.85rem;
+        font-weight: 700;
+        margin-bottom: 6px;
+    }
+    .price {
+        font-size: 1.2rem;
+        font-weight: 800;
+        color: #e63946;
+    }
+    .delivery-time {
+        font-size: 0.65rem;
+        color: #28a745;
+        margin: 5px 0;
+    }
+    .card button {
+        background: linear-gradient(100deg, #ff7a18, #ff5220);
+        border: none;
+        color: white;
+        padding: 8px 12px;
+        width: 90%;
+        border-radius: 40px;
+        font-weight: bold;
+        cursor: pointer;
+        margin-top: 8px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        font-size: 0.8rem;
+        transition: 0.2s;
+    }
+    .card button:hover {
+        transform: scale(0.98);
+    }
+
+    /* Wishlist Sidebar */
+    .wishlist-sidebar {
+        position: fixed;
+        right: 0;
+        top: 0;
+        width: 380px;
+        height: 100%;
+        background: rgba(255,255,245,0.98);
+        backdrop-filter: blur(10px);
+        box-shadow: -8px 0 35px rgba(0,0,0,0.2);
+        padding: 20px;
+        overflow-y: auto;
+        display: none;
+        z-index: 1100;
+        border-left: 5px solid #ff7a18;
+    }
+    .wishlist-item {
+        background: #fff6ed;
+        margin: 8px 0;
+        padding: 10px;
+        border-radius: 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.85rem;
+    }
+
+    .product-modal {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0,0,0,0.85);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2500;
+        visibility: hidden;
+        opacity: 0;
+        transition: 0.3s;
+    }
+    .product-modal.active {
+        visibility: visible;
+        opacity: 1;
+    }
+    .product-modal-content {
+        background: white;
+        width: 90%;
+        max-width: 550px;
+        border-radius: 32px;
+        padding: 0;
+        overflow: hidden;
+        animation: slideUp 0.3s ease;
+    }
+    @keyframes slideUp {
+        from { transform: translateY(50px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+    .product-modal-header {
+        background: linear-gradient(135deg, #ff7a18, #ff4d4d);
+        padding: 20px;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .close-modal {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+    .product-modal-body {
+        padding: 25px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+    .cart {
+        position: fixed;
+        right: 0;
+        top: 0;
+        width: 380px;
+        height: 100%;
+        background: rgba(255,255,245,0.98);
+        backdrop-filter: blur(10px);
+        box-shadow: -8px 0 35px rgba(0,0,0,0.2);
+        padding: 20px;
+        overflow-y: auto;
+        display: none;
+        z-index: 1100;
+        border-left: 5px solid #ff7a18;
+    }
+    .cart-item {
+        background: #fff6ed;
+        margin: 8px 0;
+        padding: 10px;
+        border-radius: 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.85rem;
+    }
+    .cart-total {
+        margin-top: 20px;
+        background: #2c2c2c;
+        color: white;
+        padding: 12px;
+        border-radius: 20px;
+        text-align: center;
+        font-weight: bold;
+    }
+    .checkout-btn {
+        background: #1e7e34;
+        width: 100%;
+        padding: 12px;
+        margin-top: 15px;
+        border-radius: 50px;
+        border: none;
+        color: white;
+        cursor: pointer;
+        font-weight: bold;
+    }
+    .payment-modal, .track-modal, .modal {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0,0,0,0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2000;
+        visibility: hidden;
+        opacity: 0;
+        transition: 0.2s;
+    }
+    .payment-modal.active, .track-modal.active, .modal.active {
+        visibility: visible;
+        opacity: 1;
+    }
+    .payment-card, .track-card, .modal-card {
+        background: white;
+        width: 95%;
+        max-width: 500px;
+        border-radius: 32px;
+        padding: 20px;
+        max-height: 85vh;
+        overflow-y: auto;
+    }
+    .toast-msg {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        background: #1f1f1f;
+        color: white;
+        padding: 8px 18px;
+        border-radius: 40px;
+        z-index: 2100;
+        font-size: 0.8rem;
+    }
+    @media (max-width: 700px) {
+        .cart, .wishlist-sidebar { width: 100%; }
+        .products { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+        .categories-section { top: 155px; }
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <h2>⚡ Mohit Cart <span>PAN INDIA</span></h2>
+    </div>
+    <div class="header-actions">
+        <button class="location-trigger" id="openLocationModalBtn">
+            <i class="fas fa-map-marker-alt"></i> <span id="locationLabel">Set Location</span>
+        </button>
+        <button class="profile-btn" id="profileBtn">
+            <i class="fas fa-user-circle"></i> <span id="profileLabel">Login</span>
+        </button>
+        <button class="wishlist-btn" id="wishlistBtn" onclick="toggleWishlist()">
+            <i class="fas fa-heart"></i> <span id="wishlistCount">0</span>
+        </button>
+        <button class="cart-btn" onclick="toggleCart()">
+            <i class="fas fa-shopping-bag"></i> <span id="cartCount">0</span>
+        </button>
+    </div>
+</header>
+<div class="delivery-banner" id="deliveryBanner">
+    <i class="fas fa-bolt"></i> <span id="deliveryMsg">🇮🇳 DELIVERING TO 2000+ CITIES & VILLAGES ACROSS INDIA</span>
+</div>
+
+<!-- Search Bar -->
+<div class="search-section">
+    <div class="search-container">
+        <i class="fas fa-search"></i>
+        <input type="text" id="searchInput" placeholder="Search products by name..." autocomplete="off">
+        <button class="search-clear" id="searchClearBtn" onclick="clearSearch()">&times;</button>
+    </div>
+    <div class="search-results-count" id="searchResultsCount"></div>
+</div>
+
+<div class="categories-section">
+    <div class="categories-container" id="categoriesContainer"></div>
+</div>
+
+<div class="products" id="productList"></div>
+
+<!-- Wishlist Sidebar -->
+<div id="wishlistSidebar" class="wishlist-sidebar">
+    <button class="close-cart" onclick="toggleWishlist()" style="float:right; background:none; border:none; font-size:1.2rem;">&times;</button>
+    <h3><i class="fas fa-heart" style="color:#ff7a18;"></i> My Wishlist</h3>
+    <div id="wishlistItems"></div>
+</div>
+
+<!-- Product Detail Modal -->
+<div id="productDetailModal" class="product-modal">
+    <div class="product-modal-content">
+        <div class="product-modal-header">
+            <h2><i class="fas fa-info-circle"></i> Product Details</h2>
+            <button class="close-modal" onclick="closeProductModal()">&times;</button>
+        </div>
+        <div class="product-modal-body" id="productModalBody"></div>
+    </div>
+</div>
+
+<div class="cart" id="cart">
+    <button class="close-cart" onclick="toggleCart()" style="float:right; background:none; border:none; font-size:1.2rem;">&times;</button>
+    <h3><i class="fas fa-shopping-cart"></i> Your Cart</h3>
+    <div id="cartItems"></div>
+    <div class="cart-total">Total: ₹<span id="total">0</span></div>
+    <button class="checkout-btn" onclick="proceedToPayment()"><i class="fas fa-bolt"></i> PROCEED TO PAYMENT</button>
+</div>
+
+<div id="paymentModal" class="payment-modal"><div class="payment-card"><h2 style="color:#ff7a18;">Secure Payment</h2><div id="paymentSummary"></div><div class="payment-methods"><div class="payment-option" data-method="upi">UPI</div><div class="payment-option" data-method="card">Card</div><div class="payment-option" data-method="cod">COD</div></div><div id="upiInput" style="display:none;"><input type="text" id="upiId" placeholder="UPI ID"></div><div id="cardInput" style="display:none;"><input type="text" id="cardNumber" placeholder="Card Number"></div><button id="confirmPayBtn">Pay</button><button onclick="closePaymentModal()">Cancel</button></div></div>
+<div id="trackModal" class="track-modal"><div class="track-card"><h3 id="trackOrderId">Order #</h3><div class="track-steps"><div class="step"><div class="circle">1</div><span>Placed</span></div><div class="step"><div class="circle">2</div><span>Packed</span></div><div class="step"><div class="circle">3</div><span>Out</span></div><div class="step"><div class="circle">4</div><span>Delivered</span></div></div><div id="trackMessage"></div><button onclick="closeTrackModal()">Close</button></div></div>
+<div id="universalModal" class="modal"><div class="modal-card" id="modalContent"></div></div>
+<div id="locationModal" class="modal"><div class="modal-card"><i class="fas fa-map-marker-alt"></i><h3>Select Location</h3><input type="text" id="locationInput" placeholder="Search city..."><div id="suggestionsList"></div><button id="saveLocationBtn">Save</button><button id="useCurrentLocationBtn">Use Current</button></div></div>
+
+<script>
+    // Products Data
+    const products = [
+       {id:1, name:"Aam Papad Chatpata", price:1, category:"snacks", image:"images/Aam.png", deliveryTime:"15 min", description:"Tangy and spicy aam papad, perfect for instant cravings. Made with real mango pulp."},
+        {id:2, name:"Aam Papad", price:1, category:"snacks", image:"images/Aam Papad.jpg", deliveryTime:"15 min", description:"Classic sweet aam papad, traditional Indian mango fruit roll."},
+        {id:3, name:"AAM PACHAN", price:1, category:"snacks", image:"images/AAM PACHAN.jpg", deliveryTime:"15 min", description:"Digestive candy with aam and herbs, helps after meals."},
+        {id:4, name:"Anardana", price:1, category:"snacks", image:"images/Anardana.jpg", deliveryTime:"15 min", description:"Pomegranate seed candy, tangy and refreshing."},
+         {id:5, name:"Chand Sitra", price:1, category:"snacks", image:"images/Chandsitra.jpg", deliveryTime:"15 min" , description:"Spicy and tangy candy, a burst of flavors in every bite."},
+        {id:31, name:"Guru Chela", price:1, category:"candy", image:"images/Guru Chela.jpg", deliveryTime:"15 min" , description:"Traditional Indian candy with a blend of spices and sweetness."},
+        {id:6, name:"Chatmola", price:1, category:"snacks", image:"images/Chatmola.jpg", deliveryTime:"15 min" , description:"Tangy and spicy candy, perfect for snacking anytime."},
+        {id:7, name:"Chulbula Dil", price:1, category:"snacks", image:"images/Chulbula Dil.jpg", deliveryTime:"15 min" , description:"Heart-shaped candy with a tangy twist, fun and flavorful."},
+        {id:8, name:"KIDS TIMEPASS NAMKEEN", price:1, category:"snacks", image:"images/KIDS TIMEPASS NAMKEEN.jpg", deliveryTime:"15 min" , description:"Crunchy and savory namkeen, a perfect snack for kids."},
+        {id:9, name:"RASNA", price:1, category:"snacks", image:"images/RASNA.jpg", deliveryTime:"15 min" , description:"Instant drink mix, available in multiple fruity flavors."},
+        {id:10, name:"HAJMOLA", price:1, category:"snacks", image:"images/HAJMOLA.jpg", deliveryTime:"15 min" , description:"Digestive candy with a blend of spices, helps with digestion."},
+        {id:11, name:"ANMOL JALJIRA", price:1, category:"snacks", image:"images/ANMOL JALJIRA.jpg", deliveryTime:"15 min" , description:"Refreshing jaljira candy with a mix of spices and herbs."},
+        {id:12, name:"JALJIRA", price:1, category:"snacks", image:"images/JALJIRA.jpg", deliveryTime:"15 min" , description:"Tangy and spicy jaljira candy, a burst of flavors in every bite."},
+        {id:13, name:"chattam aam papad", price:1, category:"snacks", image:"images/chattam aam papad.jpg", deliveryTime:"15 min" , description:"Spicy and tangy aam papad, perfect for instant cravings. Made with real mango pulp."},
+        {id:14, name:"Satmola", price:1, category:"snacks", image:"images/Satmola.jpg", deliveryTime:"15 min" , description:"Crunchy and savory satmola, a perfect snack for any time."},
+        {id:15, name:"Chatpata pola", price:1, category:"snacks", image:"images/pola.jpg", deliveryTime:"15 min", description:"Spicy and tangy candy, a burst of flavors in every bite."},
+        {id:16, name:"pulse candy", price:1, category:"snacks", image:"images/pulse.jpg", deliveryTime:"15 min", description:"Crunchy and savory candy, a perfect snack for any time."},
+        {id:17, name:"Tomato Ketchup", price:1, category:"snacks", image:"images/Tomato.jpg", deliveryTime:"15 min", description:"Tangy and spicy ketchup, perfect for adding flavor to any dish."},
+        {id:18, name:"Sweet Star", price:1, category:"snacks", image:"images/veena Imli Chatni.jpg", deliveryTime:"15 min", description:"Sweet and sour candy, a perfect treat for any occasion."},
+        {id:26, name:"Eclairs", price:1, category:"candy", image:"images/Eclairs.jpg", deliveryTime:"15 min", description:"Caramel chocolate candy, creamy and sweet."},
+        {id:32, name:"Kopiko", price:1, category:"candy", image:"images/Kopiko.jpg", deliveryTime:"15 min" , description:"Coffee flavored candy, rich and aromatic."},
+        {id:27, name:"Melody", price:1, category:"candy", image:"images/Melody.jpg", deliveryTime:"15 min", description:"Chocolate filled toffee, melts in mouth."},
+        {id:54, name:"NAVRATNA OIL", price:1, category:"dairy", image:"images/NAVRATNA OIL.jpg", deliveryTime:"15 min", description:"Cooling hair oil with herbal ingredients, promotes healthy scalp."},
+        {id:55, name:"BAJAJ AMLA HAIR OIL", price:1, category:"dairy", image:"images/BAJAJ ALMOND.jpg", deliveryTime:"15 min" , description:"Nourishing hair oil with amla and almond, strengthens hair."},
+        {id:56  , name:"BOOST 15 GM", price:1, category:"dairy", image:"images/BOOST 15 GM.JPG", deliveryTime:"15 min" , description:"Nutritional health drink mix, rich in vitamins and minerals."},
+        {id:57, name:"SUNSILK", price:1, category:"dairy", image:"images/SUNSILK.JPG", deliveryTime:"15min" , description:"Hair care shampoo with nourishing ingredients, promotes healthy hair."},
+         {id:4, name:"KACHHI PAKKI IMLI", price:5, category:"snacks", image:"images/KACHHI PAKKI IMLI.jpg", deliveryTime:"15 min", description:"Tangy and spicy candy, a burst of flavors in every bite."},
+        {id:19, name:"Satmola box", price:5, category:"snacks", image:"images/Satmola 5rs.jpg", deliveryTime:"15 min", description:"Pack of 5 Satmola candies, a perfect snack for any time."},
+        {id:20, name:"SHER ANAR DANA", price:1, category:"snacks", image:"images/SHER ANAR DANA.JPG", deliveryTime:"15 min" , description:"Tangy and spicy anardana candy, a burst of flavors in every bite."},
+        {id:32, name:"Parle Marie 30 GM", price:5, category:"biscuits", image:"images/Parle Marie.jpg", deliveryTime:"15 min" , description:"Classic Marie biscuits, light and crispy."},
+        {id:24, name:"BOUR BON", price:5, category:"biscuits", image:"images/BOUR BON.JPG", deliveryTime:"15 min" , description:"Chocolate cream filled biscuits, delicious and crunchy."},
+        {id:25, name:"GOOD DAY", price:5, category:"biscuits", image:"images/GOOD DAY.JPG", deliveryTime:"15 min" , description:"Butter cookies with chocolate chips, rich and tasty."},
+        {id:21, name:"Parle-G", price:5, category:"biscuits", image:"images/Parle-G.jpg", deliveryTime:"15 min", description:"India's favorite glucose biscuits, perfect with tea."},
+        {id:22, name:"OREO", price:5, category:"biscuits", image:"images/OREO.PNG", deliveryTime:"15 min", description:"Chocolate sandwich cookies, cream filled."},
+        {id:23, name:"LAY'S", price:5, category:"chips", image:"images/LAY'S  15GM.jpg", deliveryTime:"15 min", description:"American style potato chips, crispy and tasty."},
+         {id:28, name:"TAKA TAK 45 GM", price:5, category:"chips", image:"images/TAKATAK 45GM.jpg", deliveryTime:"15 min" , description:"Spicy and tangy potato chips, a burst of flavors in every bite."},
+        {id:29, name:"KURURE 40 GM", price:5, category:"chips", image:"images/KURURE 40 GM.JPG", deliveryTime:"15 min"  , description:"Crunchy and savory chips, a perfect snack for any time."},
+        {id:26, name:"LAY'S 15GM RED", price:5, category:"chips", image:"images/LAY'S  15GM YELLOW.jpg", deliveryTime:"15 min" , description:"American style potato chips, crispy and tasty."},
+        {id:34, name:"NESCAFE COFFEE 10 GM", price:10, category:"beverages", image:"images/NESCAFE COFFEE.jPG", deliveryTime:"15 min" , description:"Premium instant coffee, rich aroma."},
+        {id:28, name:"AMUL MILK", price:10, category:"dairy", image:"images/AMUL MILK 450 ML.JPG", deliveryTime:"15 min", description:"Fresh toned milk, pasteurized and healthy."},
+        {id:24, name:"SPRITE", price:10, category:"beverages", image:"images/SPRITE 250 ML.JPG", deliveryTime:"15 min", description:"Lemon lime flavored soda, refreshing and crisp."}, 
+        {id:35, name:"APPY FIZZ 125 ML", price:10, category:"beverages", image:"images/APPY FIZZ 125 ML.avif", deliveryTime:"15 min" , description:"Sparkling apple drink, sweet and bubbly."}, 
+        {id:31, name:"MOUNTAIN DEW", price:10, category:"beverages", image:"images/MOUNTAIN DEW 250 GM.JPG", deliveryTime:"15 min", description:"Citrus flavored soda, extreme refreshment."},
+        {id:40, name:"PEPSI SOFT DRINK 250 ML", price:20, category:"beverages", image:"images/PEPSI SOFT DRINK 250 ML.jpg", deliveryTime:"15 min" , description:"Classic cola drink, chilled and refreshing."},
+        {id:30, name:"STING ENERGY", price:20, category:"beverages", image:"images/STING ENERGY 250 ML RED.jpg", deliveryTime:"15 min", description:"Energy drink with caffeine, boosts energy."},
+         {id:42, name:"CAMPA COLA 500 ML", price:20, category:"beverages", image:"images/CAMPA COLA 500 ML.jpg", deliveryTime:"15 min" , description:"Classic cola drink, chilled and refreshing."},
+        {id:43, name:"MIRINDA 450 ML", price:20, category:"beverages", image:"images/MIRINDA 450 ML.jpg", deliveryTime:"15 min"     , description:"Orange flavored soda, sweet and tangy."},
+        {id:46, name:"FROOTI 300 ML", price:20, category:"beverages", image:"images/FROOTI 300 ML.jpg", deliveryTime:"15 min" , description:"Mango flavored drink, sweet and refreshing."},
+        {id:25, name:"COCA COLA", price:30, category:"beverages", image:"images/COCA COLACAN.PNG", deliveryTime:"15 min", description:"Classic cola drink, chilled and refreshing."},
+        {id:47, name:"CAMPA COLA ENERGY DRINK", price:30, category:"beverages", image:"images/CAMPA COLA ENERGY.JPG", deliveryTime:"15 min" , description:"Energy drink with caffeine, boosts energy."},
+        {id:48, name:"MOUNTAIN DEW CAN", price:30, category:"beverages", image:"images/MOUNTAIN DEW CAN.jpg", deliveryTime:"15 min", description:"Citrus flavored soda, extreme refreshment."},
+        {id:49, name:"THUMS UP CAN", price:30, category:"beverages", image:"images/THUMS UP CAN.jpg", deliveryTime:"15 min", description:"Citrus flavored soda, extreme refreshment."},
+        {id:51, name:"7 UP CAN", price:30, category:"beverages", image:"images/7 UP  CAN.jpg", deliveryTime:"15 min", description:"Citrus flavored soda, extreme refreshment."},
+        {id:52, name:"LIMCA CAN", price:30, category:"beverages", image:"images/LIMCA CAN.PNG", deliveryTime:"15 min", description:"Citrus flavored soda, extreme refreshment."},
+    ];
+    
+    const categories = [
+        {id:"all", name:"All", icon:"fa-th-large"},
+        {id:"snacks", name:"Snacks", icon:"fa-candy-cane"},
+        {id:"biscuits", name:"Biscuits", icon:"fa-cookie-bite"},
+        {id:"chips", name:"Chips", icon:"fa-potato"},
+        {id:"candy", name:"Candy", icon:"fa-candy-cane"},
+        {id:"beverages", name:"Beverages", icon:"fa-mug-hot"},
+        {id:"dairy", name:"Dairy", icon:"fa-cheese"}
+    ];
+    
+    const allIndianLocations = ["Delhi", "Mumbai", "Kolkata", "Chennai", "Bangalore", "Hyderabad", "Ahmedabad", "Pune", "Jaipur", "Lucknow", "Noida", "Gurgaon"];
+    
+    let currentCategory = "all";
+    let currentUser = localStorage.getItem("currentUser") ? JSON.parse(localStorage.getItem("currentUser")) : null;
+    let users = localStorage.getItem("ecomUsers") ? JSON.parse(localStorage.getItem("ecomUsers")) : [];
+    let orders = localStorage.getItem("userOrders") ? JSON.parse(localStorage.getItem("userOrders")) : [];
+    let cart = [];
+    let wishlist = localStorage.getItem("wishlist") ? JSON.parse(localStorage.getItem("wishlist")) : [];
+    let userLocation = localStorage.getItem("userDeliveryLocation") || "";
+    let locationValid = localStorage.getItem("locationValid") === "true";
+    let currentProductQty = 1;
+    let currentSelectedProduct = null;
+    let searchQuery = "";
+    
+    function showToast(msg, isErr=false) {
+        let t = document.querySelector(".toast-msg");
+        if(t) t.remove();
+        let toast = document.createElement("div");
+        toast.className = "toast-msg";
+        toast.innerHTML = `<i class="fas ${isErr ? 'fa-exclamation-triangle' : 'fa-check-circle'}"></i> ${msg}`;
+        toast.style.background = isErr ? "#c0392b" : "#2c6e2f";
+        document.body.appendChild(toast);
+        setTimeout(()=>toast.remove(),2500);
+    }
+    
+    // Wishlist Functions
+    function toggleWishlist() {
+        let w = document.getElementById("wishlistSidebar");
+        w.style.display = w.style.display === "block" ? "none" : "block";
+        renderWishlist();
+    }
+    
+    function addToWishlist(productId) {
+        if(!currentUser) { showToast("Please login first!", true); openAuthModal(); return; }
+        if(wishlist.includes(productId)) {
+            wishlist = wishlist.filter(id => id !== productId);
+            showToast("Removed from wishlist", false);
+        } else {
+            wishlist.push(productId);
+            showToast("Added to wishlist ❤️", false);
+        }
+        localStorage.setItem("wishlist", JSON.stringify(wishlist));
+        document.getElementById("wishlistCount").innerText = wishlist.length;
+        renderProducts();
+        renderWishlist();
+    }
+    
+    function isInWishlist(productId) {
+        return wishlist.includes(productId);
+    }
+    
+    function renderWishlist() {
+        const container = document.getElementById("wishlistItems");
+        const wishlistProducts = products.filter(p => wishlist.includes(p.id));
+        if(wishlistProducts.length === 0) {
+            container.innerHTML = "<div style='text-align:center;padding:40px;'><i class='fas fa-heart' style='font-size:2rem;color:#ddd;'></i><br>Your wishlist is empty</div>";
+        } else {
+            container.innerHTML = wishlistProducts.map(p => `
+                <div class="wishlist-item">
+                    <div><strong>${p.name}</strong><br>₹${p.price}</div>
+                    <div>
+                        <button onclick="addToCart(${p.id}); toggleWishlist();" style="background:#ff7a18; border:none; padding:5px 10px; border-radius:20px; color:white; margin-right:5px;"><i class="fas fa-cart-plus"></i></button>
+                        <button onclick="addToWishlist(${p.id})" style="background:#e63946; border:none; padding:5px 10px; border-radius:20px; color:white;"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            `).join('');
+        }
+    }
+    
+    // Search Functions
+    function handleSearch() {
+        const searchInput = document.getElementById("searchInput");
+        searchQuery = searchInput.value.toLowerCase().trim();
+        const clearBtn = document.getElementById("searchClearBtn");
+        if(searchQuery) {
+            clearBtn.style.display = "block";
+        } else {
+            clearBtn.style.display = "none";
+        }
+        renderProducts();
+    }
+    
+    function clearSearch() {
+        document.getElementById("searchInput").value = "";
+        searchQuery = "";
+        document.getElementById("searchClearBtn").style.display = "none";
+        renderProducts();
+    }
+    
+    // Render Functions
+    function renderCategories() {
+        const container = document.getElementById("categoriesContainer");
+        container.innerHTML = "";
+        categories.forEach(cat => {
+            const div = document.createElement("div");
+            div.className = `category-item ${currentCategory === cat.id ? 'active' : ''}`;
+            div.onclick = () => { currentCategory = cat.id; renderProducts(); renderCategories(); };
+            div.innerHTML = `<i class="fas ${cat.icon}"></i><span>${cat.name}</span>`;
+            container.appendChild(div);
+        });
+    }
+    
+    function renderProducts() {
+        let filtered = currentCategory === "all" ? products : products.filter(p => p.category === currentCategory);
+        
+        // Apply search filter
+        if(searchQuery) {
+            filtered = filtered.filter(p => p.name.toLowerCase().includes(searchQuery));
+        }
+        
+        const container = document.getElementById("productList");
+        const resultsCount = document.getElementById("searchResultsCount");
+        
+        if(searchQuery) {
+            resultsCount.innerHTML = `Found ${filtered.length} product${filtered.length !== 1 ? 's' : ''} for "${searchQuery}"`;
+        } else {
+            resultsCount.innerHTML = "";
+        }
+        
+        container.innerHTML = "";
+        if(filtered.length === 0) {
+            container.innerHTML = "<div style='text-align:center;padding:50px;'>No products found</div>";
+            return;
+        }
+        
+        filtered.forEach(p => {
+            const card = document.createElement("div");
+            card.className = "card";
+            card.onclick = (e) => {
+                if(e.target.tagName !== 'BUTTON' && !e.target.closest('.wishlist-icon')) {
+                    openProductDetail(p);
+                }
+            };
+            card.innerHTML = `
+                <div class="badge">⚡ ${p.deliveryTime}</div>
+                <div class="wishlist-icon ${isInWishlist(p.id) ? 'active' : ''}" onclick="event.stopPropagation(); addToWishlist(${p.id})">
+                    <i class="fas ${isInWishlist(p.id) ? 'fa-heart' : 'fa-heart'}"></i>
+                </div>
+                <div class="img-wrapper"><img src="${p.image}" onerror="this.src='https://via.placeholder.com/100?text=Product'"></div>
+                <div class="card-content">
+                    <h3>${p.name.length>25?p.name.slice(0,22)+'...':p.name}</h3>
+                    <div class="price">₹${p.price}</div>
+                    <div class="delivery-time"><i class="fas fa-bolt"></i> ${p.deliveryTime}</div>
+                    <button onclick="event.stopPropagation(); addToCart(${p.id})"><i class="fas fa-plus-circle"></i> Add to Cart</button>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
+    
+    function openProductDetail(product) {
+        currentSelectedProduct = product;
+        currentProductQty = 1;
+        const modalBody = document.getElementById("productModalBody");
+        modalBody.innerHTML = `
+            <div class="product-detail-image"><img src="${product.image}" onerror="this.src='https://via.placeholder.com/150?text=Product'"></div>
+            <h3>${product.name}</h3>
+            <div class="product-detail-price">₹${product.price}</div>
+            <div class="product-detail-delivery">⚡ ${product.deliveryTime} delivery</div>
+            <p>${product.description || "Delicious product delivered to your doorstep."}</p>
+            <div class="quantity-selector"><button onclick="updateModalQty(-1)">-</button><span id="modalQty">1</span><button onclick="updateModalQty(1)">+</button></div>
+            <button class="add-to-cart-detail" onclick="addToCartFromModal()">Add to Cart (₹${product.price})</button>
+        `;
+        document.getElementById("productDetailModal").classList.add("active");
+    }
+    
+    function updateModalQty(delta) {
+        currentProductQty += delta;
+        if(currentProductQty < 1) currentProductQty = 1;
+        document.getElementById("modalQty").innerText = currentProductQty;
+    }
+    
+    function addToCartFromModal() {
+        if(!currentUser) { showToast("Please login first!", true); openAuthModal(); return; }
+        const existing = cart.find(i => i.id === currentSelectedProduct.id);
+        if(existing) existing.qty += currentProductQty;
+        else cart.push({...currentSelectedProduct, qty: currentProductQty});
+        updateCart();
+        showToast(`✓ ${currentSelectedProduct.name} added`, false);
+        closeProductModal();
+    }
+    
+    function closeProductModal() { document.getElementById("productDetailModal").classList.remove("active"); }
+    
+    function addToCart(id) {
+        if(!currentUser) { showToast("Please login first!", true); openAuthModal(); return; }
+        const product = products.find(p=>p.id===id);
+        const existing = cart.find(i=>i.id===id);
+        if(existing) existing.qty++;
+        else cart.push({...product, qty:1});
+        updateCart();
+        showToast(`✓ ${product.name} added`, false);
+    }
+    
+    function updateCart() {
+        document.getElementById("cartCount").innerText = cart.reduce((a,b)=>a+b.qty,0);
+        document.getElementById("wishlistCount").innerText = wishlist.length;
+        const cartDiv = document.getElementById("cartItems");
+        cartDiv.innerHTML = "";
+        let total = 0;
+        if(cart.length===0) cartDiv.innerHTML = "<div style='text-align:center;padding:20px;'>Cart is empty</div>";
+        else {
+            cart.forEach(item => {
+                total += item.price * item.qty;
+                cartDiv.innerHTML += `<div class="cart-item"><span>${item.name.substring(0,15)} x${item.qty}</span><div><span>₹${item.price*item.qty}</span>
+                <button onclick="updateQty(${item.id},-1)" style="background:#ffddd3; border:none; width:24px; border-radius:30px;">-</button>
+                <button onclick="updateQty(${item.id},1)" style="background:#ffddd3; border:none; width:24px; border-radius:30px;">+</button>
+                <button onclick="removeCartItem(${item.id})" style="background:#ffc2b3; border:none; width:24px; border-radius:30px;"><i class="fas fa-trash"></i></button></div></div>`;
+            });
+        }
+        document.getElementById("total").innerText = total;
+    }
+    
+    function updateQty(id, delta) { let idx=cart.findIndex(i=>i.id===id); if(idx===-1)return; let nq=cart[idx].qty+delta; if(nq<=0) cart.splice(idx,1); else cart[idx].qty=nq; updateCart(); }
+    function removeCartItem(id) { cart=cart.filter(i=>i.id!==id); updateCart(); showToast("Item removed",false); }
+    function toggleCart() { let c=document.getElementById("cart"); c.style.display=c.style.display==="block"?"none":"block"; }
+    
+    function proceedToPayment() {
+        if(!currentUser) { showToast("Please login",true); openAuthModal(); return; }
+        if(cart.length===0) { showToast("Cart empty!",true); return; }
+        if(!userLocation || !locationValid) { showToast("Set delivery location first!",true); openLocationModal(); return; }
+        let total = cart.reduce((s,i)=>s+i.price*i.qty,0);
+        document.getElementById("payAmount").innerText = total;
+        document.getElementById("paymentSummary").innerHTML = `<strong>Order Summary</strong><br>📍 ${userLocation}<br>Total: ₹${total}<br>Delivery: FREE`;
+        document.getElementById("paymentModal").classList.add("active");
+        selectedMethod=null;
+    }
+    let selectedMethod=null;
+    document.querySelectorAll(".payment-option").forEach(opt=>{
+        opt.addEventListener("click",()=>{
+            document.querySelectorAll(".payment-option").forEach(o=>o.classList.remove("selected"));
+            opt.classList.add("selected");
+            selectedMethod=opt.dataset.method;
+            document.getElementById("upiInput").style.display=selectedMethod==="upi"?"block":"none";
+            document.getElementById("cardInput").style.display=selectedMethod==="card"?"block":"none";
+        });
+    });
+    document.getElementById("confirmPayBtn").onclick=()=>{
+        if(!selectedMethod) { showToast("Select payment method",true); return; }
+        let totalAmt = cart.reduce((s,i)=>s+i.price*i.qty,0);
+        let orderId = "MC" + Date.now().toString().slice(-8);
+        let newOrder = { id: orderId, userId: currentUser.id, items: cart.map(i=>({name:i.name, price:i.price, qty:i.qty})), total: totalAmt, date: new Date().toLocaleString(), location: userLocation, trackingStep: 1 };
+        orders.push(newOrder);
+        localStorage.setItem("userOrders", JSON.stringify(orders));
+        closePaymentModal();
+        cart = [];
+        updateCart();
+        toggleCart();
+        showToast(`✅ Order #${orderId} placed!`, false);
+        showOrderTracking(orderId);
+    };
+    
+    function showOrderTracking(orderId) { document.getElementById("trackModal").classList.add("active"); updateTrackingUI(orderId); }
+    function updateTrackingUI(orderId) { document.getElementById("trackOrderId").innerHTML = `Order #${orderId}`; }
+    function closePaymentModal() { document.getElementById("paymentModal").classList.remove("active"); }
+    function closeTrackModal() { document.getElementById("trackModal").classList.remove("active"); }
+    
+    function isLocationServiceable(loc) { return allIndianLocations.some(l => l.toLowerCase() === loc.toLowerCase()); }
+    function setUserLocation(loc) { userLocation = loc; locationValid = isLocationServiceable(loc); localStorage.setItem("userDeliveryLocation", userLocation); localStorage.setItem("locationValid", locationValid); updateDeliveryBanner(); }
+    function updateDeliveryBanner() { const msg=document.getElementById("deliveryMsg"); const locSpan=document.getElementById("locationLabel"); if(userLocation && locationValid) { msg.innerHTML=`🇮🇳 DELIVERING TO ${userLocation.toUpperCase()} • 15 MIN`; locSpan.innerHTML=userLocation.substring(0,12); } else { msg.innerHTML=`🇮🇳 SELECT YOUR LOCATION`; locSpan.innerHTML=`Set Location`; } }
+    
+    function openAuthModal() { if(currentUser) showProfileModal(); else { authMode="login"; renderAuthModal(); document.getElementById("universalModal").classList.add("active"); } }
+    let authMode="login";
+    function renderAuthModal() { let mc=document.getElementById("modalContent"); if(authMode==="login"){ mc.innerHTML=`<h2>Welcome</h2><input id="loginEmail" placeholder="Email"><input id="loginPassword" type="password" placeholder="Password"><button id="doLoginBtn">Login</button><div onclick="switchAuthMode('signup')">Signup</div><div onclick="closeModal()">Cancel</div>`; document.getElementById("doLoginBtn")?.addEventListener("click",doLogin); } else { mc.innerHTML=`<h2>Sign Up</h2><input id="signupName" placeholder="Name"><input id="signupEmail" placeholder="Email"><input id="signupPassword" type="password" placeholder="Password"><button id="doSignupBtn">Sign Up</button><div onclick="switchAuthMode('login')">Login</div><div onclick="closeModal()">Cancel</div>`; document.getElementById("doSignupBtn")?.addEventListener("click",doSignup); } }
+    function doLogin() { let e=document.getElementById("loginEmail")?.value.trim(); let p=document.getElementById("loginPassword")?.value; let u=users.find(u=>(u.email===e||u.name===e)&&u.password===p); if(u){ currentUser=u; localStorage.setItem("currentUser",JSON.stringify(currentUser)); updateUI(); closeModal(); showToast(`Welcome ${u.name}!`,false); } else showToast("Invalid credentials",true); }
+    function doSignup() { let n=document.getElementById("signupName")?.value.trim(); let e=document.getElementById("signupEmail")?.value.trim(); let p=document.getElementById("signupPassword")?.value; if(!n||!e||!p){ showToast("All fields required",true); return; } let nu={id:Date.now(),name:n,email:e,password:p}; users.push(nu); localStorage.setItem("ecomUsers",JSON.stringify(users)); currentUser=nu; localStorage.setItem("currentUser",JSON.stringify(currentUser)); updateUI(); closeModal(); showToast("Account created!",false); }
+    function switchAuthMode(mode) { authMode=mode; renderAuthModal(); }
+    function showProfileModal() { let userOrders = orders.filter(o=>o.userId===currentUser.id).reverse(); let html = `<h2>My Profile</h2><p>${currentUser.name}</p><p>${currentUser.email}</p><p>📍 ${userLocation||"Not set"}</p><h3>Orders (${userOrders.length})</h3>`; userOrders.forEach(o=>{ html+=`<div><strong>${o.id}</strong><br>₹${o.total}</div>`; }); html+=`<button id="logoutBtn">Logout</button><button id="closeProfileBtn">Close</button>`; document.getElementById("modalContent").innerHTML = html; document.getElementById("logoutBtn")?.addEventListener("click",logout); document.getElementById("closeProfileBtn")?.addEventListener("click",closeModal); document.getElementById("universalModal").classList.add("active"); }
+    function logout() { currentUser=null; localStorage.removeItem("currentUser"); cart=[]; updateCart(); updateUI(); closeModal(); showToast("Logged out",false); }
+    function updateUI() { document.getElementById("profileLabel").innerHTML = currentUser ? currentUser.name.split(' ')[0] : "Login"; updateDeliveryBanner(); }
+    function closeModal() { document.getElementById("universalModal").classList.remove("active"); }
+    function openLocationModal() { document.getElementById("locationModal").classList.add("active"); }
+    function closeLocationModal() { document.getElementById("locationModal").classList.remove("active"); }
+    
+    document.getElementById("searchInput").addEventListener("input", handleSearch);
+    document.getElementById("openLocationModalBtn").onclick = openLocationModal;
+    document.getElementById("profileBtn").onclick = openAuthModal;
+    document.getElementById("saveLocationBtn").onclick = () => { let loc=document.getElementById("locationInput").value.trim(); if(loc){ setUserLocation(loc); closeLocationModal(); } };
+    
+    window.onclick = (e) => {
+        if(e.target === document.getElementById("universalModal")) closeModal();
+        if(e.target === document.getElementById("locationModal")) closeLocationModal();
+        if(e.target === document.getElementById("paymentModal")) closePaymentModal();
+        if(e.target === document.getElementById("trackModal")) closeTrackModal();
+        if(e.target === document.getElementById("productDetailModal")) closeProductModal();
+        let cd = document.getElementById("cart");
+        if(cd.style.display === "block" && !cd.contains(e.target) && !e.target.closest(".cart-btn")) cd.style.display = "none";
+        let wd = document.getElementById("wishlistSidebar");
+        if(wd.style.display === "block" && !wd.contains(e.target) && !e.target.closest(".wishlist-btn")) wd.style.display = "none";
+    };
+    
+    if(localStorage.getItem("userDeliveryLocation")){ userLocation = localStorage.getItem("userDeliveryLocation"); locationValid = localStorage.getItem("locationValid") === "true"; }
+    renderCategories();
+    renderProducts();
+    updateCart();
+    updateUI();
+    document.getElementById("wishlistCount").innerText = wishlist.length;
+</script>
+</body>
+</html>
