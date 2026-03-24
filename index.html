@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
 <title>Mohit Cart | Pan India Express Delivery</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <style>
@@ -16,10 +16,11 @@
     body {
         background: #fefaf5;
         scroll-behavior: smooth;
+        overflow-x: hidden;
     }
 
     ::-webkit-scrollbar {
-        width: 6px;
+        width: 4px;
     }
     ::-webkit-scrollbar-track {
         background: #f1e6dc;
@@ -29,43 +30,46 @@
         border-radius: 10px;
     }
 
+    /* Mobile First Header */
     header {
         background: linear-gradient(135deg, #ff7a18, #ff4d4d);
         color: white;
-        padding: 12px 20px;
+        padding: 10px 16px;
         display: flex;
         justify-content: space-between;
         align-items: center;
         position: sticky;
         top: 0;
         z-index: 1000;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         flex-wrap: wrap;
-        gap: 10px;
+        gap: 8px;
     }
     .logo h2 {
-        font-size: 1.4rem;
+        font-size: 1.2rem;
         display: flex;
         align-items: center;
         gap: 6px;
+        letter-spacing: -0.3px;
     }
     .logo span {
         background: white;
         color: #ff4d4d;
-        font-size: 0.65rem;
+        font-size: 0.55rem;
         padding: 2px 6px;
         border-radius: 30px;
+        font-weight: bold;
     }
     .header-actions {
         display: flex;
-        gap: 8px;
+        gap: 6px;
         align-items: center;
         flex-wrap: wrap;
     }
     .location-trigger, .profile-btn, .cart-btn, .wishlist-btn {
         background: rgba(255,255,255,0.2);
         border: none;
-        padding: 6px 12px;
+        padding: 5px 10px;
         border-radius: 40px;
         color: white;
         font-weight: 600;
@@ -73,8 +77,9 @@
         display: flex;
         align-items: center;
         gap: 5px;
-        transition: 0.3s;
-        font-size: 0.85rem;
+        transition: 0.2s;
+        font-size: 0.7rem;
+        backdrop-filter: blur(4px);
     }
     .cart-btn, .wishlist-btn {
         background: white;
@@ -83,19 +88,19 @@
     .delivery-banner {
         background: linear-gradient(135deg, #1e3c2c, #2c5a3a);
         color: #ffd966;
-        padding: 8px;
+        padding: 6px 10px;
         text-align: center;
-        font-size: 0.8rem;
+        font-size: 0.7rem;
         font-weight: 500;
     }
 
-    /* Search Bar */
+    /* Search */
     .search-section {
         background: white;
-        padding: 12px 20px;
+        padding: 10px 16px;
         border-bottom: 1px solid #f0e6dc;
         position: sticky;
-        top: 70px;
+        top: 64px;
         z-index: 98;
     }
     .search-container {
@@ -105,49 +110,22 @@
     }
     .search-container input {
         width: 100%;
-        padding: 12px 20px 12px 45px;
+        padding: 10px 20px 10px 42px;
         border-radius: 50px;
         border: 2px solid #ffddd3;
-        font-size: 0.9rem;
+        font-size: 0.85rem;
         outline: none;
         transition: 0.2s;
     }
     .search-container input:focus {
         border-color: #ff7a18;
-        box-shadow: 0 0 0 3px rgba(255,122,24,0.1);
     }
-    .search-container i {
-        position: absolute;
-        left: 18px;
-        top: 50%;
-        transform: translateY(-50%);
-        color: #ff7a18;
-        font-size: 1rem;
-    }
-    .search-clear {
-        position: absolute;
-        right: 15px;
-        top: 50%;
-        transform: translateY(-50%);
-        background: none;
-        border: none;
-        color: #999;
-        cursor: pointer;
-        display: none;
-    }
-    .search-results-count {
-        text-align: center;
-        font-size: 0.75rem;
-        color: #666;
-        margin-top: 8px;
-    }
-
     .categories-section {
         background: white;
-        padding: 15px 20px;
+        padding: 10px 12px;
         border-bottom: 1px solid #f0e6dc;
         position: sticky;
-        top: 125px;
+        top: 110px;
         z-index: 97;
         overflow-x: auto;
         white-space: nowrap;
@@ -155,19 +133,20 @@
     }
     .categories-container {
         display: inline-flex;
-        gap: 12px;
+        gap: 8px;
     }
     .category-item {
         display: inline-flex;
         flex-direction: column;
         align-items: center;
-        gap: 6px;
+        gap: 4px;
         cursor: pointer;
-        padding: 8px 16px;
+        padding: 6px 12px;
         border-radius: 40px;
         background: #f8f4f0;
         transition: all 0.2s;
-        min-width: 70px;
+        min-width: 60px;
+        font-size: 0.7rem;
     }
     .category-item.active {
         background: #ff7a18;
@@ -176,360 +155,254 @@
     }
     .products {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-        gap: 18px;
-        padding: 25px 20px;
-        max-width: 1400px;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 14px;
+        padding: 20px 12px;
+        max-width: 700px;
         margin: 0 auto;
     }
     .card {
         background: white;
         border-radius: 20px;
         overflow: hidden;
-        transition: all 0.3s;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        transition: all 0.2s;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.04);
         border: 1px solid rgba(255,122,24,0.1);
         position: relative;
         cursor: pointer;
     }
-    .card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 12px 24px rgba(255,122,24,0.15);
-    }
-    .badge {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        background: #ff7a18;
-        color: white;
-        padding: 2px 8px;
-        border-radius: 20px;
-        font-size: 0.7rem;
-        font-weight: bold;
-        z-index: 2;
-    }
-    .wishlist-icon {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        background: white;
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        z-index: 3;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        transition: 0.2s;
-    }
-    .wishlist-icon i {
-        color: #ff7a18;
-        font-size: 1rem;
-    }
-    .wishlist-icon.active i {
-        color: #e63946;
-        font-weight: bold;
-    }
-    .wishlist-icon:hover {
-        transform: scale(1.1);
-    }
     .img-wrapper {
         background: #fef4ea;
-        padding: 15px;
+        padding: 12px;
         display: flex;
         justify-content: center;
-        height: 150px;
+        height: 130px;
     }
     .card img {
         max-width: 100%;
-        max-height: 120px;
+        max-height: 95px;
         object-fit: contain;
     }
     .card-content {
-        padding: 12px 12px 16px;
+        padding: 8px 8px 12px;
         text-align: center;
     }
     .card h3 {
-        font-size: 0.85rem;
+        font-size: 0.75rem;
         font-weight: 700;
-        margin-bottom: 6px;
+        margin-bottom: 4px;
     }
     .price {
-        font-size: 1.2rem;
+        font-size: 1rem;
         font-weight: 800;
         color: #e63946;
-    }
-    .delivery-time {
-        font-size: 0.65rem;
-        color: #28a745;
-        margin: 5px 0;
     }
     .card button {
         background: linear-gradient(100deg, #ff7a18, #ff5220);
         border: none;
         color: white;
-        padding: 8px 12px;
-        width: 90%;
+        padding: 6px 8px;
+        width: 95%;
         border-radius: 40px;
         font-weight: bold;
         cursor: pointer;
-        margin-top: 8px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 6px;
-        font-size: 0.8rem;
-        transition: 0.2s;
-    }
-    .card button:hover {
-        transform: scale(0.98);
+        margin-top: 6px;
+        font-size: 0.7rem;
     }
 
-    /* Wishlist Sidebar */
-    .wishlist-sidebar {
+    /* Sidebar Responsive */
+    .cart, .wishlist-sidebar {
         position: fixed;
         right: 0;
         top: 0;
-        width: 380px;
+        width: 85%;
+        max-width: 360px;
         height: 100%;
-        background: rgba(255,255,245,0.98);
-        backdrop-filter: blur(10px);
-        box-shadow: -8px 0 35px rgba(0,0,0,0.2);
+        background: #fffef7;
+        backdrop-filter: blur(20px);
+        box-shadow: -5px 0 25px rgba(0,0,0,0.2);
         padding: 20px;
         overflow-y: auto;
         display: none;
-        z-index: 1100;
-        border-left: 5px solid #ff7a18;
-    }
-    .wishlist-item {
-        background: #fff6ed;
-        margin: 8px 0;
-        padding: 10px;
-        border-radius: 16px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-size: 0.85rem;
+        z-index: 1200;
+        border-left: 4px solid #ff7a18;
     }
 
-    .product-modal {
-        position: fixed;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        background: rgba(0,0,0,0.85);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 2500;
-        visibility: hidden;
-        opacity: 0;
-        transition: 0.3s;
-    }
-    .product-modal.active {
-        visibility: visible;
-        opacity: 1;
-    }
-    .product-modal-content {
-        background: white;
-        width: 90%;
-        max-width: 550px;
-        border-radius: 32px;
-        padding: 0;
-        overflow: hidden;
-        animation: slideUp 0.3s ease;
-    }
-    @keyframes slideUp {
-        from { transform: translateY(50px); opacity: 0; }
-        to { transform: translateY(0); opacity: 1; }
-    }
-    .product-modal-header {
-        background: linear-gradient(135deg, #ff7a18, #ff4d4d);
-        padding: 20px;
-        color: white;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-    .close-modal {
-        background: none;
-        border: none;
-        color: white;
-        font-size: 1.5rem;
-        cursor: pointer;
-    }
-    .product-modal-body {
-        padding: 25px;
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-    }
-    .cart {
-        position: fixed;
-        right: 0;
-        top: 0;
-        width: 380px;
-        height: 100%;
-        background: rgba(255,255,245,0.98);
-        backdrop-filter: blur(10px);
-        box-shadow: -8px 0 35px rgba(0,0,0,0.2);
-        padding: 20px;
-        overflow-y: auto;
-        display: none;
-        z-index: 1100;
-        border-left: 5px solid #ff7a18;
-    }
-    .cart-item {
-        background: #fff6ed;
-        margin: 8px 0;
-        padding: 10px;
-        border-radius: 16px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-size: 0.85rem;
-    }
-    .cart-total {
-        margin-top: 20px;
-        background: #2c2c2c;
-        color: white;
-        padding: 12px;
-        border-radius: 20px;
-        text-align: center;
-        font-weight: bold;
-    }
-    .checkout-btn {
-        background: #1e7e34;
-        width: 100%;
-        padding: 12px;
-        margin-top: 15px;
-        border-radius: 50px;
-        border: none;
-        color: white;
-        cursor: pointer;
-        font-weight: bold;
-    }
-    .payment-modal, .track-modal, .modal {
+    /* MODERN AUTH & LOCATION MODALS */
+    .modern-modal {
         position: fixed;
         top: 0; left: 0;
         width: 100%; height: 100%;
         background: rgba(0,0,0,0.8);
+        backdrop-filter: blur(8px);
         display: flex;
         align-items: center;
         justify-content: center;
         z-index: 2000;
         visibility: hidden;
         opacity: 0;
-        transition: 0.2s;
+        transition: 0.25s ease;
     }
-    .payment-modal.active, .track-modal.active, .modal.active {
+    .modern-modal.active {
         visibility: visible;
         opacity: 1;
     }
-    .payment-card, .track-card, .modal-card {
-        background: white;
-        width: 95%;
-        max-width: 500px;
-        border-radius: 32px;
-        padding: 20px;
-        max-height: 85vh;
-        overflow-y: auto;
+    .glass-card {
+        background: rgba(255,255,245,0.98);
+        width: 90%;
+        max-width: 420px;
+        border-radius: 42px;
+        padding: 28px 22px;
+        box-shadow: 0 25px 45px rgba(0,0,0,0.3);
+        text-align: center;
+        animation: floatUp 0.3s ease;
+        border: 1px solid rgba(255,122,24,0.3);
+    }
+    @keyframes floatUp {
+        from { transform: translateY(30px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+    .glass-card h2 {
+        color: #ff7a18;
+        margin-bottom: 20px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+    .glass-card input, .glass-card select {
+        width: 100%;
+        padding: 14px 18px;
+        margin: 10px 0;
+        border-radius: 60px;
+        border: 1.5px solid #ffe0d0;
+        background: #fff;
+        font-size: 0.9rem;
+        transition: 0.2s;
+    }
+    .glass-card input:focus {
+        border-color: #ff7a18;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(255,122,24,0.2);
+    }
+    .btn-primary {
+        background: linear-gradient(95deg, #ff7a18, #ff4d4d);
+        border: none;
+        padding: 12px;
+        width: 100%;
+        border-radius: 50px;
+        color: white;
+        font-weight: bold;
+        font-size: 1rem;
+        margin-top: 12px;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+    .btn-outline {
+        background: transparent;
+        border: 2px solid #ff7a18;
+        color: #ff7a18;
+        padding: 10px;
+        width: 100%;
+        border-radius: 50px;
+        font-weight: bold;
+        margin-top: 8px;
+        cursor: pointer;
+    }
+    .toggle-auth {
+        margin-top: 18px;
+        font-size: 0.85rem;
+        color: #ff7a18;
+        cursor: pointer;
+        font-weight: 500;
+    }
+    .location-suggest {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 12px 0;
+        justify-content: center;
+    }
+    .loc-chip {
+        background: #fff0e6;
+        padding: 6px 14px;
+        border-radius: 40px;
+        font-size: 0.7rem;
+        cursor: pointer;
+        transition: 0.1s;
     }
     .toast-msg {
         position: fixed;
         bottom: 20px;
         left: 20px;
+        right: 20px;
         background: #1f1f1f;
         color: white;
-        padding: 8px 18px;
-        border-radius: 40px;
+        padding: 12px 18px;
+        border-radius: 60px;
         z-index: 2100;
         font-size: 0.8rem;
+        text-align: center;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
-    @media (max-width: 700px) {
-        .cart, .wishlist-sidebar { width: 100%; }
-        .products { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
-        .categories-section { top: 155px; }
+    @media (max-width: 550px) {
+        .products { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        .categories-section { top: 106px; }
+        .search-section { top: 60px; }
+        .logo h2 { font-size: 1rem; }
     }
+    .product-modal .product-modal-content { max-width: 94%; border-radius: 28px; }
+    .track-steps { display: flex; justify-content: space-between; margin: 20px 0; }
+    .step { text-align: center; font-size: 0.7rem; }
+    .circle { background: #ff7a18; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; margin-bottom: 5px; }
+    .payment-option { background: #f5ebe2; padding: 12px; margin: 8px 0; border-radius: 50px; cursor: pointer; text-align: center; font-weight: bold; }
+    .payment-option.selected { background: #ff7a18; color: white; }
 </style>
 </head>
 <body>
 
 <header>
-    <div class="logo">
-        <h2>⚡ Mohit Cart <span>PAN INDIA</span></h2>
-    </div>
+    <div class="logo"><h2>⚡ Mohit Cart <span>PAN INDIA</span></h2></div>
     <div class="header-actions">
-        <button class="location-trigger" id="openLocationModalBtn">
-            <i class="fas fa-map-marker-alt"></i> <span id="locationLabel">Set Location</span>
-        </button>
-        <button class="profile-btn" id="profileBtn">
-            <i class="fas fa-user-circle"></i> <span id="profileLabel">Login</span>
-        </button>
-        <button class="wishlist-btn" id="wishlistBtn" onclick="toggleWishlist()">
-            <i class="fas fa-heart"></i> <span id="wishlistCount">0</span>
-        </button>
-        <button class="cart-btn" onclick="toggleCart()">
-            <i class="fas fa-shopping-bag"></i> <span id="cartCount">0</span>
-        </button>
+        <button class="location-trigger" id="openLocationModalBtn"><i class="fas fa-map-marker-alt"></i> <span id="locationLabel">Set Loc</span></button>
+        <button class="profile-btn" id="profileBtn"><i class="fas fa-user-circle"></i> <span id="profileLabel">Login</span></button>
+        <button class="wishlist-btn" id="wishlistBtn"><i class="fas fa-heart"></i> <span id="wishlistCount">0</span></button>
+        <button class="cart-btn" id="cartToggleBtn"><i class="fas fa-shopping-bag"></i> <span id="cartCount">0</span></button>
     </div>
 </header>
-<div class="delivery-banner" id="deliveryBanner">
-    <i class="fas fa-bolt"></i> <span id="deliveryMsg">🇮🇳 DELIVERING TO 2000+ CITIES & VILLAGES ACROSS INDIA</span>
-</div>
+<div class="delivery-banner"><i class="fas fa-bolt"></i> <span id="deliveryMsg">🇮🇳 DELIVERING TO 2000+ CITIES</span></div>
 
-<!-- Search Bar -->
-<div class="search-section">
-    <div class="search-container">
-        <i class="fas fa-search"></i>
-        <input type="text" id="searchInput" placeholder="Search products by name..." autocomplete="off">
-        <button class="search-clear" id="searchClearBtn" onclick="clearSearch()">&times;</button>
-    </div>
-    <div class="search-results-count" id="searchResultsCount"></div>
-</div>
+<div class="search-section"><div class="search-container"><i class="fas fa-search"></i><input type="text" id="searchInput" placeholder="Search sweets, biscuits, beverages..." autocomplete="off"><button class="search-clear" id="searchClearBtn" onclick="clearSearch()">&times;</button></div><div class="search-results-count" id="searchResultsCount"></div></div>
 
-<div class="categories-section">
-    <div class="categories-container" id="categoriesContainer"></div>
-</div>
-
+<div class="categories-section"><div class="categories-container" id="categoriesContainer"></div></div>
 <div class="products" id="productList"></div>
 
 <!-- Wishlist Sidebar -->
-<div id="wishlistSidebar" class="wishlist-sidebar">
-    <button class="close-cart" onclick="toggleWishlist()" style="float:right; background:none; border:none; font-size:1.2rem;">&times;</button>
-    <h3><i class="fas fa-heart" style="color:#ff7a18;"></i> My Wishlist</h3>
-    <div id="wishlistItems"></div>
-</div>
+<div id="wishlistSidebar" class="wishlist-sidebar"><button onclick="toggleWishlist()" style="float:right; background:none; border:none; font-size:1.3rem;">&times;</button><h3><i class="fas fa-heart" style="color:#ff7a18;"></i> My Wishlist</h3><div id="wishlistItems"></div></div>
 
-<!-- Product Detail Modal -->
-<div id="productDetailModal" class="product-modal">
-    <div class="product-modal-content">
-        <div class="product-modal-header">
-            <h2><i class="fas fa-info-circle"></i> Product Details</h2>
-            <button class="close-modal" onclick="closeProductModal()">&times;</button>
-        </div>
-        <div class="product-modal-body" id="productModalBody"></div>
-    </div>
-</div>
+<!-- Cart Sidebar -->
+<div id="cart" class="cart"><button onclick="toggleCart()" style="float:right; background:none; border:none; font-size:1.3rem;">&times;</button><h3><i class="fas fa-shopping-cart"></i> Your Cart</h3><div id="cartItems"></div><div class="cart-total" style="margin-top:15px; background:#2c2c2c; padding:12px; border-radius:20px; color:white;">Total: ₹<span id="total">0</span></div><button class="checkout-btn" onclick="proceedToPayment()" style="background:#1e7e34; width:100%; padding:12px; border-radius:40px; margin-top:12px;">PROCEED</button></div>
 
-<div class="cart" id="cart">
-    <button class="close-cart" onclick="toggleCart()" style="float:right; background:none; border:none; font-size:1.2rem;">&times;</button>
-    <h3><i class="fas fa-shopping-cart"></i> Your Cart</h3>
-    <div id="cartItems"></div>
-    <div class="cart-total">Total: ₹<span id="total">0</span></div>
-    <button class="checkout-btn" onclick="proceedToPayment()"><i class="fas fa-bolt"></i> PROCEED TO PAYMENT</button>
-</div>
+<!-- Product Modal -->
+<div id="productDetailModal" class="modern-modal"><div class="glass-card" style="padding:20px;"><div style="display:flex; justify-content:space-between;"><h2>Details</h2><button onclick="closeProductModal()" style="background:none; border:none; font-size:1.8rem;">&times;</button></div><div id="productModalBody"></div></div></div>
 
-<div id="paymentModal" class="payment-modal"><div class="payment-card"><h2 style="color:#ff7a18;">Secure Payment</h2><div id="paymentSummary"></div><div class="payment-methods"><div class="payment-option" data-method="upi">UPI</div><div class="payment-option" data-method="card">Card</div><div class="payment-option" data-method="cod">COD</div></div><div id="upiInput" style="display:none;"><input type="text" id="upiId" placeholder="UPI ID"></div><div id="cardInput" style="display:none;"><input type="text" id="cardNumber" placeholder="Card Number"></div><button id="confirmPayBtn">Pay</button><button onclick="closePaymentModal()">Cancel</button></div></div>
-<div id="trackModal" class="track-modal"><div class="track-card"><h3 id="trackOrderId">Order #</h3><div class="track-steps"><div class="step"><div class="circle">1</div><span>Placed</span></div><div class="step"><div class="circle">2</div><span>Packed</span></div><div class="step"><div class="circle">3</div><span>Out</span></div><div class="step"><div class="circle">4</div><span>Delivered</span></div></div><div id="trackMessage"></div><button onclick="closeTrackModal()">Close</button></div></div>
-<div id="universalModal" class="modal"><div class="modal-card" id="modalContent"></div></div>
-<div id="locationModal" class="modal"><div class="modal-card"><i class="fas fa-map-marker-alt"></i><h3>Select Location</h3><input type="text" id="locationInput" placeholder="Search city..."><div id="suggestionsList"></div><button id="saveLocationBtn">Save</button><button id="useCurrentLocationBtn">Use Current</button></div></div>
+<!-- Payment Modal -->
+<div id="paymentModal" class="modern-modal"><div class="glass-card"><h2>💳 Secure Payment</h2><div id="paymentSummary"></div><div class="payment-methods"><div class="payment-option" data-method="upi">📱 UPI</div><div class="payment-option" data-method="card">💳 Card</div><div class="payment-option" data-method="cod">💰 Cash on Delivery</div></div><div id="upiInput" style="display:none;"><input type="text" id="upiId" placeholder="example@okhdfcbank"></div><div id="cardInput" style="display:none;"><input type="text" id="cardNumber" placeholder="Card Number"></div><button id="confirmPayBtn" class="btn-primary">Pay & Place Order</button><button onclick="closePaymentModal()" class="btn-outline" style="margin-top:8px;">Cancel</button></div></div>
+
+<!-- Tracking Modal -->
+<div id="trackModal" class="modern-modal"><div class="glass-card"><h3 id="trackOrderId">Order #</h3><div class="track-steps"><div class="step"><div class="circle">1</div><span>Placed</span></div><div class="step"><div class="circle">2</div><span>Packed</span></div><div class="step"><div class="circle">3</div><span>Out</span></div><div class="step"><div class="circle">4</div><span>Delivered</span></div></div><div id="trackMessage"></div><button onclick="closeTrackModal()" class="btn-outline">Close</button></div></div>
+
+<!-- Universal Auth Modal (Login/Signup) -->
+<div id="authModal" class="modern-modal"><div class="glass-card" id="authModalContent"></div></div>
+
+<!-- Location Modal with modern UI -->
+<div id="locationModal" class="modern-modal"><div class="glass-card"><h2><i class="fas fa-map-marker-alt"></i> Delivery Location</h2><input type="text" id="locationInput" placeholder="Search city (Delhi, Mumbai...)" autocomplete="off"><div class="location-suggest" id="locationSuggestions"></div><button id="saveLocationBtn" class="btn-primary">Save & Deliver Here</button><button id="useCurrentLocationBtn" class="btn-outline">Use Current Location</button></div></div>
 
 <script>
-    // Products Data
+    // ---------- DATA ----------
     const products = [
-       {id:1, name:"Aam Papad Chatpata", price:1, category:"snacks", image:"images/Aam.png", deliveryTime:"15 min", description:"Tangy and spicy aam papad, perfect for instant cravings. Made with real mango pulp."},
+        {id:1, name:"Aam Papad Chatpata", price:1, category:"snacks", image:"images/Aam.png", deliveryTime:"15 min", description:"Tangy and spicy aam papad, perfect for instant cravings. Made with real mango pulp."},
         {id:2, name:"Aam Papad", price:1, category:"snacks", image:"images/Aam Papad.jpg", deliveryTime:"15 min", description:"Classic sweet aam papad, traditional Indian mango fruit roll."},
         {id:3, name:"AAM PACHAN", price:1, category:"snacks", image:"images/AAM PACHAN.jpg", deliveryTime:"15 min", description:"Digestive candy with aam and herbs, helps after meals."},
         {id:4, name:"Anardana", price:1, category:"snacks", image:"images/Anardana.jpg", deliveryTime:"15 min", description:"Pomegranate seed candy, tangy and refreshing."},
@@ -586,18 +459,8 @@
         {id:51, name:"7 UP CAN", price:30, category:"beverages", image:"images/7 UP CAN.JPG", deliveryTime:"15 min", description:"Citrus flavored soda, extreme refreshment."},
         {id:52, name:"LIMCA CAN", price:30, category:"beverages", image:"images/LIMCA CAN.png", deliveryTime:"15 min", description:"Citrus flavored soda, extreme refreshment."},
     ];
-    
-    const categories = [
-        {id:"all", name:"All", icon:"fa-th-large"},
-        {id:"snacks", name:"Snacks", icon:"fa-candy-cane"},
-        {id:"biscuits", name:"Biscuits", icon:"fa-cookie-bite"},
-        {id:"chips", name:"Chips", icon:"fa-potato"},
-        {id:"candy", name:"Candy", icon:"fa-candy-cane"},
-        {id:"beverages", name:"Beverages", icon:"fa-mug-hot"},
-        {id:"dairy", name:"Dairy", icon:"fa-cheese"}
-    ];
-    
-    const allIndianLocations = ["Delhi", "Mumbai", "Kolkata", "Chennai", "Bangalore", "Hyderabad", "Ahmedabad", "Pune", "Jaipur", "Lucknow", "Noida", "Gurgaon"];
+    const categories = [{id:"all", name:"All", icon:"fa-th-large"},{id:"snacks", name:"Snacks", icon:"fa-candy-cane"},{id:"biscuits", name:"Biscuits", icon:"fa-cookie-bite"},{id:"chips", name:"Chips", icon:"fa-potato"},{id:"candy", name:"Candy", icon:"fa-candy-cane"},{id:"beverages", name:"Beverages", icon:"fa-mug-hot"},{id:"dairy", name:"Dairy", icon:"fa-cheese"}];
+    const allIndianLocations = ["Delhi","Mumbai","Kolkata","Chennai","Bangalore","Hyderabad","Ahmedabad","Pune","Jaipur","Lucknow","Noida","Gurgaon","Indore","Bhopal"];
     
     let currentCategory = "all";
     let currentUser = localStorage.getItem("currentUser") ? JSON.parse(localStorage.getItem("currentUser")) : null;
@@ -607,293 +470,60 @@
     let wishlist = localStorage.getItem("wishlist") ? JSON.parse(localStorage.getItem("wishlist")) : [];
     let userLocation = localStorage.getItem("userDeliveryLocation") || "";
     let locationValid = localStorage.getItem("locationValid") === "true";
-    let currentProductQty = 1;
-    let currentSelectedProduct = null;
     let searchQuery = "";
     
-    function showToast(msg, isErr=false) {
-        let t = document.querySelector(".toast-msg");
-        if(t) t.remove();
-        let toast = document.createElement("div");
-        toast.className = "toast-msg";
-        toast.innerHTML = `<i class="fas ${isErr ? 'fa-exclamation-triangle' : 'fa-check-circle'}"></i> ${msg}`;
-        toast.style.background = isErr ? "#c0392b" : "#2c6e2f";
-        document.body.appendChild(toast);
-        setTimeout(()=>toast.remove(),2500);
-    }
-    
-    // Wishlist Functions
-    function toggleWishlist() {
-        let w = document.getElementById("wishlistSidebar");
-        w.style.display = w.style.display === "block" ? "none" : "block";
-        renderWishlist();
-    }
-    
-    function addToWishlist(productId) {
-        if(!currentUser) { showToast("Please login first!", true); openAuthModal(); return; }
-        if(wishlist.includes(productId)) {
-            wishlist = wishlist.filter(id => id !== productId);
-            showToast("Removed from wishlist", false);
-        } else {
-            wishlist.push(productId);
-            showToast("Added to wishlist ❤️", false);
-        }
-        localStorage.setItem("wishlist", JSON.stringify(wishlist));
-        document.getElementById("wishlistCount").innerText = wishlist.length;
-        renderProducts();
-        renderWishlist();
-    }
-    
-    function isInWishlist(productId) {
-        return wishlist.includes(productId);
-    }
-    
-    function renderWishlist() {
-        const container = document.getElementById("wishlistItems");
-        const wishlistProducts = products.filter(p => wishlist.includes(p.id));
-        if(wishlistProducts.length === 0) {
-            container.innerHTML = "<div style='text-align:center;padding:40px;'><i class='fas fa-heart' style='font-size:2rem;color:#ddd;'></i><br>Your wishlist is empty</div>";
-        } else {
-            container.innerHTML = wishlistProducts.map(p => `
-                <div class="wishlist-item">
-                    <div><strong>${p.name}</strong><br>₹${p.price}</div>
-                    <div>
-                        <button onclick="addToCart(${p.id}); toggleWishlist();" style="background:#ff7a18; border:none; padding:5px 10px; border-radius:20px; color:white; margin-right:5px;"><i class="fas fa-cart-plus"></i></button>
-                        <button onclick="addToWishlist(${p.id})" style="background:#e63946; border:none; padding:5px 10px; border-radius:20px; color:white;"><i class="fas fa-trash"></i></button>
-                    </div>
-                </div>
-            `).join('');
-        }
-    }
-    
-    // Search Functions
-    function handleSearch() {
-        const searchInput = document.getElementById("searchInput");
-        searchQuery = searchInput.value.toLowerCase().trim();
-        const clearBtn = document.getElementById("searchClearBtn");
-        if(searchQuery) {
-            clearBtn.style.display = "block";
-        } else {
-            clearBtn.style.display = "none";
-        }
-        renderProducts();
-    }
-    
-    function clearSearch() {
-        document.getElementById("searchInput").value = "";
-        searchQuery = "";
-        document.getElementById("searchClearBtn").style.display = "none";
-        renderProducts();
-    }
-    
-    // Render Functions
-    function renderCategories() {
-        const container = document.getElementById("categoriesContainer");
-        container.innerHTML = "";
-        categories.forEach(cat => {
-            const div = document.createElement("div");
-            div.className = `category-item ${currentCategory === cat.id ? 'active' : ''}`;
-            div.onclick = () => { currentCategory = cat.id; renderProducts(); renderCategories(); };
-            div.innerHTML = `<i class="fas ${cat.icon}"></i><span>${cat.name}</span>`;
-            container.appendChild(div);
-        });
-    }
-    
-    function renderProducts() {
-        let filtered = currentCategory === "all" ? products : products.filter(p => p.category === currentCategory);
-        
-        // Apply search filter
-        if(searchQuery) {
-            filtered = filtered.filter(p => p.name.toLowerCase().includes(searchQuery));
-        }
-        
-        const container = document.getElementById("productList");
-        const resultsCount = document.getElementById("searchResultsCount");
-        
-        if(searchQuery) {
-            resultsCount.innerHTML = `Found ${filtered.length} product${filtered.length !== 1 ? 's' : ''} for "${searchQuery}"`;
-        } else {
-            resultsCount.innerHTML = "";
-        }
-        
-        container.innerHTML = "";
-        if(filtered.length === 0) {
-            container.innerHTML = "<div style='text-align:center;padding:50px;'>No products found</div>";
-            return;
-        }
-        
-        filtered.forEach(p => {
-            const card = document.createElement("div");
-            card.className = "card";
-            card.onclick = (e) => {
-                if(e.target.tagName !== 'BUTTON' && !e.target.closest('.wishlist-icon')) {
-                    openProductDetail(p);
-                }
-            };
-            card.innerHTML = `
-                <div class="badge">⚡ ${p.deliveryTime}</div>
-                <div class="wishlist-icon ${isInWishlist(p.id) ? 'active' : ''}" onclick="event.stopPropagation(); addToWishlist(${p.id})">
-                    <i class="fas ${isInWishlist(p.id) ? 'fa-heart' : 'fa-heart'}"></i>
-                </div>
-                <div class="img-wrapper"><img src="${p.image}" onerror="this.src='https://via.placeholder.com/100?text=Product'"></div>
-                <div class="card-content">
-                    <h3>${p.name.length>25?p.name.slice(0,22)+'...':p.name}</h3>
-                    <div class="price">₹${p.price}</div>
-                    <div class="delivery-time"><i class="fas fa-bolt"></i> ${p.deliveryTime}</div>
-                    <button onclick="event.stopPropagation(); addToCart(${p.id})"><i class="fas fa-plus-circle"></i> Add to Cart</button>
-                </div>
-            `;
-            container.appendChild(card);
-        });
-    }
-    
-    function openProductDetail(product) {
-        currentSelectedProduct = product;
-        currentProductQty = 1;
-        const modalBody = document.getElementById("productModalBody");
-        modalBody.innerHTML = `
-            <div class="product-detail-image"><img src="${product.image}" onerror="this.src='https://via.placeholder.com/150?text=Product'"></div>
-            <h3>${product.name}</h3>
-            <div class="product-detail-price">₹${product.price}</div>
-            <div class="product-detail-delivery">⚡ ${product.deliveryTime} delivery</div>
-            <p>${product.description || "Delicious product delivered to your doorstep."}</p>
-            <div class="quantity-selector"><button onclick="updateModalQty(-1)">-</button><span id="modalQty">1</span><button onclick="updateModalQty(1)">+</button></div>
-            <button class="add-to-cart-detail" onclick="addToCartFromModal()">Add to Cart (₹${product.price})</button>
-        `;
-        document.getElementById("productDetailModal").classList.add("active");
-    }
-    
-    function updateModalQty(delta) {
-        currentProductQty += delta;
-        if(currentProductQty < 1) currentProductQty = 1;
-        document.getElementById("modalQty").innerText = currentProductQty;
-    }
-    
-    function addToCartFromModal() {
-        if(!currentUser) { showToast("Please login first!", true); openAuthModal(); return; }
-        const existing = cart.find(i => i.id === currentSelectedProduct.id);
-        if(existing) existing.qty += currentProductQty;
-        else cart.push({...currentSelectedProduct, qty: currentProductQty});
-        updateCart();
-        showToast(`✓ ${currentSelectedProduct.name} added`, false);
-        closeProductModal();
-    }
-    
-    function closeProductModal() { document.getElementById("productDetailModal").classList.remove("active"); }
-    
-    function addToCart(id) {
-        if(!currentUser) { showToast("Please login first!", true); openAuthModal(); return; }
-        const product = products.find(p=>p.id===id);
-        const existing = cart.find(i=>i.id===id);
-        if(existing) existing.qty++;
-        else cart.push({...product, qty:1});
-        updateCart();
-        showToast(`✓ ${product.name} added`, false);
-    }
-    
-    function updateCart() {
-        document.getElementById("cartCount").innerText = cart.reduce((a,b)=>a+b.qty,0);
-        document.getElementById("wishlistCount").innerText = wishlist.length;
-        const cartDiv = document.getElementById("cartItems");
-        cartDiv.innerHTML = "";
-        let total = 0;
-        if(cart.length===0) cartDiv.innerHTML = "<div style='text-align:center;padding:20px;'>Cart is empty</div>";
-        else {
-            cart.forEach(item => {
-                total += item.price * item.qty;
-                cartDiv.innerHTML += `<div class="cart-item"><span>${item.name.substring(0,15)} x${item.qty}</span><div><span>₹${item.price*item.qty}</span>
-                <button onclick="updateQty(${item.id},-1)" style="background:#ffddd3; border:none; width:24px; border-radius:30px;">-</button>
-                <button onclick="updateQty(${item.id},1)" style="background:#ffddd3; border:none; width:24px; border-radius:30px;">+</button>
-                <button onclick="removeCartItem(${item.id})" style="background:#ffc2b3; border:none; width:24px; border-radius:30px;"><i class="fas fa-trash"></i></button></div></div>`;
-            });
-        }
-        document.getElementById("total").innerText = total;
-    }
-    
-    function updateQty(id, delta) { let idx=cart.findIndex(i=>i.id===id); if(idx===-1)return; let nq=cart[idx].qty+delta; if(nq<=0) cart.splice(idx,1); else cart[idx].qty=nq; updateCart(); }
-    function removeCartItem(id) { cart=cart.filter(i=>i.id!==id); updateCart(); showToast("Item removed",false); }
+    function showToast(msg, isErr=false) { let t=document.querySelector(".toast-msg"); if(t) t.remove(); let toast=document.createElement("div"); toast.className="toast-msg"; toast.innerHTML=`<i class="fas ${isErr?'fa-exclamation-triangle':'fa-check-circle'}"></i> ${msg}`; toast.style.background=isErr?"#c0392b":"#2c6e2f"; document.body.appendChild(toast); setTimeout(()=>toast.remove(),2500); }
+    function toggleWishlist() { let w=document.getElementById("wishlistSidebar"); w.style.display=w.style.display==="block"?"none":"block"; renderWishlist(); }
     function toggleCart() { let c=document.getElementById("cart"); c.style.display=c.style.display==="block"?"none":"block"; }
-    
-    function proceedToPayment() {
-        if(!currentUser) { showToast("Please login",true); openAuthModal(); return; }
-        if(cart.length===0) { showToast("Cart empty!",true); return; }
-        if(!userLocation || !locationValid) { showToast("Set delivery location first!",true); openLocationModal(); return; }
-        let total = cart.reduce((s,i)=>s+i.price*i.qty,0);
-        document.getElementById("payAmount").innerText = total;
-        document.getElementById("paymentSummary").innerHTML = `<strong>Order Summary</strong><br>📍 ${userLocation}<br>Total: ₹${total}<br>Delivery: FREE`;
-        document.getElementById("paymentModal").classList.add("active");
-        selectedMethod=null;
-    }
+    function addToWishlist(productId) { if(!currentUser) { showToast("Please login first!", true); openAuthModal(); return; } if(wishlist.includes(productId)) wishlist=wishlist.filter(id=>id!==productId); else wishlist.push(productId); localStorage.setItem("wishlist",JSON.stringify(wishlist)); document.getElementById("wishlistCount").innerText=wishlist.length; renderProducts(); renderWishlist(); showToast(wishlist.includes(productId)?"❤️ Added to wishlist":"Removed",false); }
+    function isInWishlist(pid) { return wishlist.includes(pid); }
+    function renderWishlist() { let container=document.getElementById("wishlistItems"); let wp=products.filter(p=>wishlist.includes(p.id)); if(wp.length===0) container.innerHTML="<div style='text-align:center;padding:30px;'>❤️ Empty</div>"; else container.innerHTML=wp.map(p=>`<div class="wishlist-item" style="background:#fff0e6;margin:8px 0;padding:8px;border-radius:20px;"><div><strong>${p.name}</strong><br>₹${p.price}</div><div><button onclick="addToCart(${p.id}); toggleWishlist();" style="background:#ff7a18;border:none;padding:5px 12px;border-radius:30px;color:white;">Add</button><button onclick="addToWishlist(${p.id})" style="background:#e63946;margin-left:5px;border:none;padding:5px 12px;border-radius:30px;">🗑️</button></div></div>`).join(''); }
+    function handleSearch() { searchQuery=document.getElementById("searchInput").value.toLowerCase().trim(); document.getElementById("searchClearBtn").style.display=searchQuery?"block":"none"; renderProducts(); }
+    function clearSearch() { document.getElementById("searchInput").value=""; searchQuery=""; document.getElementById("searchClearBtn").style.display="none"; renderProducts(); }
+    function renderCategories() { let cont=document.getElementById("categoriesContainer"); cont.innerHTML=""; categories.forEach(cat=>{ let div=document.createElement("div"); div.className=`category-item ${currentCategory===cat.id?'active':''}`; div.onclick=()=>{ currentCategory=cat.id; renderProducts(); renderCategories(); }; div.innerHTML=`<i class="fas ${cat.icon}"></i><span>${cat.name}</span>`; cont.appendChild(div); }); }
+    function renderProducts() { let filtered=currentCategory==="all"?products:products.filter(p=>p.category===currentCategory); if(searchQuery) filtered=filtered.filter(p=>p.name.toLowerCase().includes(searchQuery)); document.getElementById("searchResultsCount").innerHTML=searchQuery?`Found ${filtered.length} items`:"";
+        let container=document.getElementById("productList"); container.innerHTML=""; if(filtered.length===0){ container.innerHTML="<div style='text-align:center;padding:40px;'>No products</div>"; return; }
+        filtered.forEach(p=>{ let card=document.createElement("div"); card.className="card"; card.onclick=(e)=>{ if(e.target.tagName!=='BUTTON' && !e.target.closest('.wishlist-icon')) openProductDetail(p); };
+        card.innerHTML=`<div class="img-wrapper"><img src="${p.image}" onerror="this.src='https://via.placeholder.com/100?text=Item'"></div><div class="card-content"><h3>${p.name.length>20?p.name.slice(0,18)+'..':p.name}</h3><div class="price">₹${p.price}</div><div class="delivery-time"><i class="fas fa-bolt"></i> ${p.deliveryTime}</div><button onclick="event.stopPropagation(); addToCart(${p.id})"><i class="fas fa-cart-plus"></i> Add</button></div><div class="wishlist-icon ${isInWishlist(p.id)?'active':''}" onclick="event.stopPropagation(); addToWishlist(${p.id})" style="position:absolute;top:8px;right:8px;background:white;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;"><i class="fas fa-heart" style="color:${isInWishlist(p.id)?'#e63946':'#ff7a18'}"></i></div>`; container.appendChild(card); }); }
+    function openProductDetail(p) { let modalBody=document.getElementById("productModalBody"); modalBody.innerHTML=`<img src="${p.image}" style="width:100%;max-height:150px;object-fit:contain;"><h3>${p.name}</h3><div>₹${p.price}</div><p>${p.description||"Delicious & Fresh"}</p><button class="btn-primary" onclick="addToCart(${p.id}); closeProductModal();">Add to Cart</button>`; document.getElementById("productDetailModal").classList.add("active"); }
+    function closeProductModal() { document.getElementById("productDetailModal").classList.remove("active"); }
+    function addToCart(id) { if(!currentUser){ showToast("Login first",true); openAuthModal(); return; } let product=products.find(p=>p.id===id); let existing=cart.find(i=>i.id===id); if(existing) existing.qty+=1; else cart.push({...product,qty:1}); updateCart(); showToast(`✓ ${product.name} added`,false); }
+    function updateCart() { document.getElementById("cartCount").innerText=cart.reduce((a,b)=>a+b.qty,0); document.getElementById("wishlistCount").innerText=wishlist.length; let cartDiv=document.getElementById("cartItems"); let total=0; cartDiv.innerHTML=""; if(cart.length===0) cartDiv.innerHTML="<div style='padding:20px;text-align:center;'>Cart empty</div>"; else cart.forEach(item=>{ total+=item.price*item.qty; cartDiv.innerHTML+=`<div class="cart-item" style="display:flex;justify-content:space-between;margin:6px 0;padding:8px;background:#fff0e6;border-radius:20px;"><span>${item.name} x${item.qty}</span><span>₹${item.price*item.qty} <button onclick="updateQty(${item.id},-1)" style="background:#ffddd3;border:none;border-radius:20px;padding:2px 8px;">-</button><button onclick="updateQty(${item.id},1)" style="background:#ffddd3;border:none;border-radius:20px;">+</button><button onclick="removeCartItem(${item.id})" style="background:#ffc2b3;border:none;border-radius:20px;">🗑️</button></span></div>`; }); document.getElementById("total").innerText=total; }
+    function updateQty(id,delta){ let idx=cart.findIndex(i=>i.id===id); if(idx===-1)return; let nq=cart[idx].qty+delta; if(nq<=0) cart.splice(idx,1); else cart[idx].qty=nq; updateCart(); }
+    function removeCartItem(id){ cart=cart.filter(i=>i.id!==id); updateCart(); showToast("Removed",false); }
+    // WhatsApp order integration
+    function sendWhatsAppOrder(orderId, itemsSummary, total, location) { let phone="9258895817"; let message=`🛍️ *NEW ORDER* 🛍️%0AOrder ID: ${orderId}%0ACustomer: ${currentUser?.name}%0ALocation: ${location}%0AItems: ${itemsSummary}%0ATotal: ₹${total}%0AThank you!`; window.open(`https://wa.me/${phone}?text=${message}`,'_blank'); }
+    function proceedToPayment() { if(!currentUser){ showToast("Login first",true); openAuthModal(); return; } if(cart.length===0){ showToast("Cart empty",true); return; } if(!userLocation || !locationValid){ showToast("Set delivery location",true); openLocationModal(); return; } let total=cart.reduce((s,i)=>s+i.price*i.qty,0); document.getElementById("paymentSummary").innerHTML=`<strong>📍 ${userLocation}</strong><br>Total: ₹${total}<br>FREE Delivery`; document.getElementById("paymentModal").classList.add("active"); }
     let selectedMethod=null;
-    document.querySelectorAll(".payment-option").forEach(opt=>{
-        opt.addEventListener("click",()=>{
-            document.querySelectorAll(".payment-option").forEach(o=>o.classList.remove("selected"));
-            opt.classList.add("selected");
-            selectedMethod=opt.dataset.method;
-            document.getElementById("upiInput").style.display=selectedMethod==="upi"?"block":"none";
-            document.getElementById("cardInput").style.display=selectedMethod==="card"?"block":"none";
-        });
-    });
-    document.getElementById("confirmPayBtn").onclick=()=>{
-        if(!selectedMethod) { showToast("Select payment method",true); return; }
-        let totalAmt = cart.reduce((s,i)=>s+i.price*i.qty,0);
-        let orderId = "MC" + Date.now().toString().slice(-8);
-        let newOrder = { id: orderId, userId: currentUser.id, items: cart.map(i=>({name:i.name, price:i.price, qty:i.qty})), total: totalAmt, date: new Date().toLocaleString(), location: userLocation, trackingStep: 1 };
-        orders.push(newOrder);
-        localStorage.setItem("userOrders", JSON.stringify(orders));
-        closePaymentModal();
-        cart = [];
-        updateCart();
-        toggleCart();
-        showToast(`✅ Order #${orderId} placed!`, false);
-        showOrderTracking(orderId);
-    };
-    
-    function showOrderTracking(orderId) { document.getElementById("trackModal").classList.add("active"); updateTrackingUI(orderId); }
-    function updateTrackingUI(orderId) { document.getElementById("trackOrderId").innerHTML = `Order #${orderId}`; }
-    function closePaymentModal() { document.getElementById("paymentModal").classList.remove("active"); }
-    function closeTrackModal() { document.getElementById("trackModal").classList.remove("active"); }
-    
-    function isLocationServiceable(loc) { return allIndianLocations.some(l => l.toLowerCase() === loc.toLowerCase()); }
-    function setUserLocation(loc) { userLocation = loc; locationValid = isLocationServiceable(loc); localStorage.setItem("userDeliveryLocation", userLocation); localStorage.setItem("locationValid", locationValid); updateDeliveryBanner(); }
-    function updateDeliveryBanner() { const msg=document.getElementById("deliveryMsg"); const locSpan=document.getElementById("locationLabel"); if(userLocation && locationValid) { msg.innerHTML=`🇮🇳 DELIVERING TO ${userLocation.toUpperCase()} • 15 MIN`; locSpan.innerHTML=userLocation.substring(0,12); } else { msg.innerHTML=`🇮🇳 SELECT YOUR LOCATION`; locSpan.innerHTML=`Set Location`; } }
-    
-    function openAuthModal() { if(currentUser) showProfileModal(); else { authMode="login"; renderAuthModal(); document.getElementById("universalModal").classList.add("active"); } }
-    let authMode="login";
-    function renderAuthModal() { let mc=document.getElementById("modalContent"); if(authMode==="login"){ mc.innerHTML=`<h2>Welcome</h2><input id="loginEmail" placeholder="Email"><input id="loginPassword" type="password" placeholder="Password"><button id="doLoginBtn">Login</button><div onclick="switchAuthMode('signup')">Signup</div><div onclick="closeModal()">Cancel</div>`; document.getElementById("doLoginBtn")?.addEventListener("click",doLogin); } else { mc.innerHTML=`<h2>Sign Up</h2><input id="signupName" placeholder="Name"><input id="signupEmail" placeholder="Email"><input id="signupPassword" type="password" placeholder="Password"><button id="doSignupBtn">Sign Up</button><div onclick="switchAuthMode('login')">Login</div><div onclick="closeModal()">Cancel</div>`; document.getElementById("doSignupBtn")?.addEventListener("click",doSignup); } }
-    function doLogin() { let e=document.getElementById("loginEmail")?.value.trim(); let p=document.getElementById("loginPassword")?.value; let u=users.find(u=>(u.email===e||u.name===e)&&u.password===p); if(u){ currentUser=u; localStorage.setItem("currentUser",JSON.stringify(currentUser)); updateUI(); closeModal(); showToast(`Welcome ${u.name}!`,false); } else showToast("Invalid credentials",true); }
-    function doSignup() { let n=document.getElementById("signupName")?.value.trim(); let e=document.getElementById("signupEmail")?.value.trim(); let p=document.getElementById("signupPassword")?.value; if(!n||!e||!p){ showToast("All fields required",true); return; } let nu={id:Date.now(),name:n,email:e,password:p}; users.push(nu); localStorage.setItem("ecomUsers",JSON.stringify(users)); currentUser=nu; localStorage.setItem("currentUser",JSON.stringify(currentUser)); updateUI(); closeModal(); showToast("Account created!",false); }
-    function switchAuthMode(mode) { authMode=mode; renderAuthModal(); }
-    function showProfileModal() { let userOrders = orders.filter(o=>o.userId===currentUser.id).reverse(); let html = `<h2>My Profile</h2><p>${currentUser.name}</p><p>${currentUser.email}</p><p>📍 ${userLocation||"Not set"}</p><h3>Orders (${userOrders.length})</h3>`; userOrders.forEach(o=>{ html+=`<div><strong>${o.id}</strong><br>₹${o.total}</div>`; }); html+=`<button id="logoutBtn">Logout</button><button id="closeProfileBtn">Close</button>`; document.getElementById("modalContent").innerHTML = html; document.getElementById("logoutBtn")?.addEventListener("click",logout); document.getElementById("closeProfileBtn")?.addEventListener("click",closeModal); document.getElementById("universalModal").classList.add("active"); }
-    function logout() { currentUser=null; localStorage.removeItem("currentUser"); cart=[]; updateCart(); updateUI(); closeModal(); showToast("Logged out",false); }
-    function updateUI() { document.getElementById("profileLabel").innerHTML = currentUser ? currentUser.name.split(' ')[0] : "Login"; updateDeliveryBanner(); }
-    function closeModal() { document.getElementById("universalModal").classList.remove("active"); }
-    function openLocationModal() { document.getElementById("locationModal").classList.add("active"); }
-    function closeLocationModal() { document.getElementById("locationModal").classList.remove("active"); }
-    
-    document.getElementById("searchInput").addEventListener("input", handleSearch);
-    document.getElementById("openLocationModalBtn").onclick = openLocationModal;
-    document.getElementById("profileBtn").onclick = openAuthModal;
-    document.getElementById("saveLocationBtn").onclick = () => { let loc=document.getElementById("locationInput").value.trim(); if(loc){ setUserLocation(loc); closeLocationModal(); } };
-    
-    window.onclick = (e) => {
-        if(e.target === document.getElementById("universalModal")) closeModal();
-        if(e.target === document.getElementById("locationModal")) closeLocationModal();
-        if(e.target === document.getElementById("paymentModal")) closePaymentModal();
-        if(e.target === document.getElementById("trackModal")) closeTrackModal();
-        if(e.target === document.getElementById("productDetailModal")) closeProductModal();
-        let cd = document.getElementById("cart");
-        if(cd.style.display === "block" && !cd.contains(e.target) && !e.target.closest(".cart-btn")) cd.style.display = "none";
-        let wd = document.getElementById("wishlistSidebar");
-        if(wd.style.display === "block" && !wd.contains(e.target) && !e.target.closest(".wishlist-btn")) wd.style.display = "none";
-    };
-    
-    if(localStorage.getItem("userDeliveryLocation")){ userLocation = localStorage.getItem("userDeliveryLocation"); locationValid = localStorage.getItem("locationValid") === "true"; }
-    renderCategories();
-    renderProducts();
-    updateCart();
-    updateUI();
-    document.getElementById("wishlistCount").innerText = wishlist.length;
+    document.querySelectorAll(".payment-option").forEach(opt=>{ opt.addEventListener("click",()=>{ document.querySelectorAll(".payment-option").forEach(o=>o.classList.remove("selected")); opt.classList.add("selected"); selectedMethod=opt.dataset.method; document.getElementById("upiInput").style.display=selectedMethod==="upi"?"block":"none"; document.getElementById("cardInput").style.display=selectedMethod==="card"?"block":"none"; }); });
+    document.getElementById("confirmPayBtn").onclick=()=>{ if(!selectedMethod){ showToast("Select payment method",true); return; } let totalAmt=cart.reduce((s,i)=>s+i.price*i.qty,0); let orderId="MC"+Date.now().toString().slice(-8); let itemText=cart.map(i=>`${i.name} x${i.qty}`).join(", "); let newOrder={id:orderId,userId:currentUser.id,items:cart.map(i=>({name:i.name,price:i.price,qty:i.qty})),total:totalAmt,date:new Date().toLocaleString(),location:userLocation,trackingStep:1}; orders.push(newOrder); localStorage.setItem("userOrders",JSON.stringify(orders)); sendWhatsAppOrder(orderId,itemText,totalAmt,userLocation); cart=[]; updateCart(); toggleCart(); closePaymentModal(); showToast(`✅ Order #${orderId} placed! WhatsApp sent`,false); showOrderTracking(orderId); };
+    function showOrderTracking(oid){ document.getElementById("trackModal").classList.add("active"); document.getElementById("trackOrderId").innerHTML=`Order #${oid}`; }
+    function closePaymentModal(){ document.getElementById("paymentModal").classList.remove("active"); }
+    function closeTrackModal(){ document.getElementById("trackModal").classList.remove("active"); }
+    function isLocationServiceable(loc){ return allIndianLocations.some(l=>l.toLowerCase()===loc.toLowerCase()); }
+    function setUserLocation(loc){ userLocation=loc; locationValid=isLocationServiceable(loc); localStorage.setItem("userDeliveryLocation",userLocation); localStorage.setItem("locationValid",locationValid); updateDeliveryBanner(); }
+    function updateDeliveryBanner(){ let msg=document.getElementById("deliveryMsg"); let locSpan=document.getElementById("locationLabel"); if(userLocation && locationValid){ msg.innerHTML=`🇮🇳 DELIVERING TO ${userLocation.toUpperCase()} • 15 MIN`; locSpan.innerHTML=userLocation.substring(0,10); } else { msg.innerHTML=`📍 SELECT YOUR LOCATION`; locSpan.innerHTML=`Set Loc`; } }
+    // AUTH MODERN UI
+    function openAuthModal() { if(currentUser) showProfileModal(); else { renderAuthModal("login"); document.getElementById("authModal").classList.add("active"); } }
+    function renderAuthModal(mode){ let modalDiv=document.getElementById("authModalContent"); if(mode==="login"){ modalDiv.innerHTML=`<h2><i class="fas fa-user-lock"></i> Welcome Back</h2><input id="loginEmail" placeholder="Email / Username"><input id="loginPassword" type="password" placeholder="Password"><button id="doLoginBtn" class="btn-primary">Login</button><div class="toggle-auth" onclick="renderAuthModal('signup')">New? Create Account</div><button onclick="closeAuthModal()" class="btn-outline">Cancel</button>`; document.getElementById("doLoginBtn")?.addEventListener("click",doLogin); } else { modalDiv.innerHTML=`<h2><i class="fas fa-user-plus"></i> Sign Up</h2><input id="signupName" placeholder="Full Name"><input id="signupEmail" placeholder="Email"><input id="signupPassword" type="password" placeholder="Password"><button id="doSignupBtn" class="btn-primary">Sign Up</button><div class="toggle-auth" onclick="renderAuthModal('login')">Already have account? Login</div><button onclick="closeAuthModal()" class="btn-outline">Cancel</button>`; document.getElementById("doSignupBtn")?.addEventListener("click",doSignup); } }
+    function doLogin(){ let e=document.getElementById("loginEmail")?.value.trim(); let p=document.getElementById("loginPassword")?.value; let u=users.find(u=>(u.email===e||u.name===e)&&u.password===p); if(u){ currentUser=u; localStorage.setItem("currentUser",JSON.stringify(currentUser)); updateUI(); closeAuthModal(); showToast(`Welcome ${u.name}!`,false); renderProducts(); updateCart(); } else showToast("Invalid credentials",true); }
+    function doSignup(){ let n=document.getElementById("signupName")?.value.trim(); let e=document.getElementById("signupEmail")?.value.trim(); let p=document.getElementById("signupPassword")?.value; if(!n||!e||!p){ showToast("All fields required",true); return; } let nu={id:Date.now(),name:n,email:e,password:p}; users.push(nu); localStorage.setItem("ecomUsers",JSON.stringify(users)); currentUser=nu; localStorage.setItem("currentUser",JSON.stringify(currentUser)); updateUI(); closeAuthModal(); showToast("Account created!",false); renderProducts(); updateCart(); }
+    function showProfileModal() { let userOrders=orders.filter(o=>o.userId===currentUser.id).reverse(); let html=`<h2><i class="fas fa-id-card"></i> ${currentUser.name}</h2><p>📧 ${currentUser.email}</p><p>📍 ${userLocation||"Not set"}</p><h3>Orders (${userOrders.length})</h3>`; userOrders.forEach(o=>{ html+=`<div style="background:#f5ebe2;padding:8px;margin:6px 0;border-radius:20px;"><strong>${o.id}</strong><br>₹${o.total}</div>`; }); html+=`<button id="logoutBtn" class="btn-outline">Logout</button><button onclick="closeAuthModal()" class="btn-primary">Close</button>`; document.getElementById("authModalContent").innerHTML=html; document.getElementById("logoutBtn")?.addEventListener("click",()=>{ currentUser=null; localStorage.removeItem("currentUser"); cart=[]; updateCart(); updateUI(); closeAuthModal(); showToast("Logged out",false); renderProducts(); }); document.getElementById("authModal").classList.add("active"); }
+    function closeAuthModal(){ document.getElementById("authModal").classList.remove("active"); }
+    function updateUI(){ document.getElementById("profileLabel").innerHTML=currentUser?currentUser.name.split(' ')[0]:"Login"; updateDeliveryBanner(); }
+    function openLocationModal(){ document.getElementById("locationModal").classList.add("active"); renderLocationSuggestions(); }
+    function closeLocationModal(){ document.getElementById("locationModal").classList.remove("active"); }
+    function renderLocationSuggestions(){ let suggDiv=document.getElementById("locationSuggestions"); suggDiv.innerHTML=allIndianLocations.map(loc=>`<div class="loc-chip" onclick="document.getElementById('locationInput').value='${loc}'; setUserLocation('${loc}'); closeLocationModal();">${loc}</div>`).join(''); }
+    document.getElementById("saveLocationBtn").onclick=()=>{ let loc=document.getElementById("locationInput").value.trim(); if(loc){ setUserLocation(loc); closeLocationModal(); showToast(`📍 Delivering to ${loc}`,false); } };
+    document.getElementById("useCurrentLocationBtn").onclick=()=>{ if(navigator.geolocation){ navigator.geolocation.getCurrentPosition(pos=>{ fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${pos.coords.latitude}&lon=${pos.coords.longitude}`).then(r=>r.json()).then(data=>{ let city=data.address?.city||data.address?.town||"Delhi"; setUserLocation(city); closeLocationModal(); showToast(`📍 ${city} set`,false); }).catch(()=>{ setUserLocation("Delhi"); closeLocationModal(); }); }); } else showToast("Enable location",true); };
+    document.getElementById("searchInput").addEventListener("input",handleSearch);
+    document.getElementById("openLocationModalBtn").onclick=openLocationModal;
+    document.getElementById("profileBtn").onclick=openAuthModal;
+    document.getElementById("cartToggleBtn").onclick=toggleCart;
+    document.getElementById("wishlistBtn").onclick=toggleWishlist;
+    if(localStorage.getItem("userDeliveryLocation")){ userLocation=localStorage.getItem("userDeliveryLocation"); locationValid=localStorage.getItem("locationValid")==="true"; }
+    window.onclick=(e)=>{ if(e.target.classList.contains("modern-modal")){ e.target.classList.remove("active"); } };
+    renderCategories(); renderProducts(); updateCart(); updateUI(); document.getElementById("wishlistCount").innerText=wishlist.length;
 </script>
 </body>
 </html>
